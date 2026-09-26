@@ -1,0 +1,30 @@
+# Naukri searches, run one after another in a single browser tab.
+# The code hard-caps a run at 10 searches no matter what is listed here.
+naukri:
+  enabled: true
+  headless: false         # headless Chromium gets HTTP 403 from Naukri; a real window works
+  experience: 0           # Naukri's experience filter (years)
+  jobAgeDays: 7           # Naukri's freshness filter: 1, 3, 7 or 15
+  maxSearches: 10
+  searches:
+    - { keyword: react developer, city: chennai }
+    - { keyword: react developer, city: bengaluru }
+    - { keyword: react developer, city: hyderabad }
+    - { keyword: react developer, city: coimbatore }
+    - { keyword: react developer, city: pune }
+    - { keyword: frontend developer fresher }
+    - { keyword: react developer fresher }
+    - { keyword: junior react developer }
+    - { keyword: associate software engineer react }
+    - { keyword: react internship, internship: true }   # only runs when includeInternships is on
+
+# Aggregator APIs. Both need a free key in .env and are skipped without one.
+adzuna:               # https://developer.adzuna.com  -> ADZUNA_APP_ID, ADZUNA_APP_KEY
+  enabled: true
+  queries: [react fresher, junior frontend, react developer entry level]
+  maxDaysOld: 7
+
+jooble:               # https://jooble.org/api/about  -> JOOBLE_API_KEY
+  enabled: true
+  queries: [react fresher, junior frontend developer]
+  location: India

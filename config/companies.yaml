@@ -1,0 +1,54 @@
+# Company career boards with public job APIs (no key, no login): Greenhouse, Lever, Ashby, SmartRecruiters.
+# slug = the board name in the career-page URL, e.g. jobs.lever.co/<slug>.
+# Only India / remote-India roles with entry-level or frontend titles are kept.
+# Every slug below answered the API on 2026-09-26. Add your own; a dead slug is just skipped with a warning.
+
+greenhouse:          # boards.greenhouse.io/<slug>
+  - { slug: groww, name: Groww }
+  - { slug: hackerrank, name: HackerRank }
+  - { slug: inmobi, name: InMobi }
+  - { slug: sigmoid, name: Sigmoid }
+  - { slug: druva, name: Druva }
+  - { slug: rubrik, name: Rubrik }
+  - { slug: mongodb, name: MongoDB }
+  - { slug: stripe, name: Stripe }
+  - { slug: twilio, name: Twilio }
+  - { slug: gitlab, name: GitLab }
+  - { slug: samsara, name: Samsara }
+  - { slug: toast, name: Toast }
+  - { slug: coinbase, name: Coinbase }
+  - { slug: elastic, name: Elastic }
+  - { slug: airbnb, name: Airbnb }
+  - { slug: thoughtworks, name: Thoughtworks }
+  - { slug: observeai, name: Observe.AI }
+
+lever:               # jobs.lever.co/<slug>
+  - { slug: cred, name: CRED }
+  - { slug: paytm, name: Paytm }
+  - { slug: meesho, name: Meesho }
+  - { slug: zeta, name: Zeta }
+  - { slug: fampay, name: FamPay }
+  - { slug: mindtickle, name: Mindtickle }
+  - { slug: pocketfm, name: Pocket FM }
+  - { slug: hevodata, name: Hevo Data }
+
+ashby:               # jobs.ashbyhq.com/<slug>
+  - { slug: sarvam, name: Sarvam AI }
+  - { slug: atlan, name: Atlan }
+  - { slug: supabase, name: Supabase }
+  - { slug: posthog, name: PostHog }
+  - { slug: ramp, name: Ramp }
+  - { slug: cursor, name: Cursor }
+  - { slug: replit, name: Replit }
+  - { slug: perplexity, name: Perplexity }
+
+smartrecruiters:     # jobs.smartrecruiters.com/<slug>  (case-sensitive; only India postings are fetched)
+  - { slug: Nagarro1, name: Nagarro }
+  - { slug: Swiggy, name: Swiggy }
+  - { slug: Freshworks, name: Freshworks }
+  - { slug: BoschGroup, name: Bosch }
+  - { slug: ServiceNow, name: ServiceNow }
+  - { slug: Canva, name: Canva }
+  - { slug: Mindtickle, name: Mindtickle }
+  - { slug: Grab, name: Grab }
+  - { slug: Endava, name: Endava }

@@ -1,0 +1,76 @@
+# Your profile. Everything here drives filtering and scoring - edit freely,
+# then hit "Rescore" in the dashboard (or run `npm run scout -- --rescore`).
+
+name: ""                       # shown in the dashboard greeting
+weeklyGoal: 10                 # applications per week - the dashboard tracks your progress
+graduation:
+  year: 2025
+  degree: B.E. Computer Science
+
+experience:
+  maxMinYears: 1               # keep postings whose minimum is 0 or 1 yr
+  maxMaxYears: 3               # ...and whose maximum is at most 3 yrs (a 0-min posting like "0-5 yrs" still passes)
+  allowTwoIfFreshersOk: true   # keep a "2+ yrs" posting if it says freshers can apply
+
+includeInternships: false      # paid React internships (unpaid ones are always dropped)
+maxAgeDays: 21                 # postings older than this are dropped
+
+skills:
+  core:
+    - { name: React, aliases: [reactjs, react.js, react js] }
+    - { name: JavaScript, aliases: [js, es6, es6+, ecmascript, javascript es6] }
+    - { name: HTML, aliases: [html5] }
+    - { name: CSS, aliases: [css3, scss, sass] }
+    - { name: Git, aliases: [github, gitlab] }
+    - { name: REST, aliases: [rest api, rest apis, restful, restful api, api integration] }
+  bonus:
+    - { name: TypeScript, aliases: [ts] }
+    - { name: Redux, aliases: [redux toolkit, rtk] }
+    - { name: Context API, aliases: [react context] }
+    - { name: React Router, aliases: [react-router] }
+    - { name: Next.js, aliases: [nextjs, next js] }
+    - { name: Tailwind, aliases: [tailwind css, tailwindcss] }
+    - { name: Node.js, aliases: [nodejs, node js, node] }
+    - { name: Express, aliases: [express.js, expressjs] }
+    - { name: Firebase }
+    - { name: Jest, aliases: [react testing library] }
+
+locations:
+  preferred: [Chennai, Bengaluru, Hyderabad, Coimbatore, Pune]
+  acceptRemote: true
+
+title:
+  # A title needs one of these to get the "role" part of the title score.
+  role: [react, frontend, front end, front-end, ui developer, ui engineer, next.js, reactjs]
+  rolePartial: [mern, full stack, fullstack, full-stack, web developer, javascript developer, software engineer, software developer]
+  level: [junior, jr, associate, fresher, freshers, graduate, trainee, entry level, sde-1, sde 1, sde i, engineer i, intern]
+
+exclude:
+  # Dropped when found in the title.
+  seniority: [senior, sr, sr., lead, manager, architect, principal, staff, head, director, vp, mid-level, mid level]
+  # Always dropped, even if the title mentions React.
+  hard: [sales, bpo, telecaller, tele caller, telesales, voice process, customer support, customer care, data entry, business development, accounts, accountant, human resources, hr executive, recruiter, marketing]
+  # Dropped unless the title also carries a frontend signal (react, frontend, ui, full stack, mern...).
+  offTrack: [backend, back end, back-end, java, .net, asp.net, dotnet, php, python, golang, android, ios, flutter, devops, qa, tester, testing, test engineer, sdet, data analyst, data scientist, business analyst, quality engineer, quality analyst, sap, salesforce]
+  # Titles with any of these escape the offTrack list ("Full Stack (Java + React)" stays).
+  frontendSignals: [react, reactjs, frontend, front end, front-end, ui, next.js, mern, mean, full stack, fullstack, full-stack, web developer, javascript]
+  # A title naming one of these but not React is another framework's job ("Angular Frontend Developer").
+  otherFrameworks: [angular, angularjs, vue, vue.js, vuejs, svelte, ember]
+  # A posting must mention one of these somewhere (title, tags or description) to be relevant at all.
+  mustMention: [react, reactjs, react.js, frontend, front end, front-end, javascript, next.js, mern]
+
+scam:
+  salaryCeilingLpa: 12         # fresher offers above this with vague role text get flagged
+
+scoring:
+  title: { role: 15, rolePartial: 8, level: 10, max: 25 }
+  coreSkill: { each: 5, max: 25 }
+  bonusSkill: { each: 2, max: 10 }
+  experience: { min0: 15, min1: 10, freshersOk: 10 }
+  location: { preferred: 10, remote: 10, otherIndia: 4 }
+  freshness: { today: 15, within2Days: 10, within5Days: 5 }
+  batchMismatch: -30
+
+thresholds:
+  strong: 65
+  maybe: 45
