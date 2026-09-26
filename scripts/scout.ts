@@ -24,3 +24,5 @@ try {
   log.error((e as Error).stack ?? String(e));
   process.exitCode = 1;
 }
+// Firestore keeps its connection open; end the process once the run is done.
+process.exit(process.exitCode ?? 0);

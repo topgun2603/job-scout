@@ -14,12 +14,12 @@ export async function POST(req: Request, ctx: IdCtx) {
   if (r.error) return r.error;
   const parsed = body.safeParse(await req.json().catch(() => ({})));
   if (!parsed.success) return NextResponse.json({ error: `plan must be one of ${PLAN_IDS.join(", ")}` }, { status: 400 });
-  return NextResponse.json({ user: grantAccess(r.user.id, parsed.data.plan), log: accessLog(r.user.id) });
+  return NextResponse.json({ user: await grantAccess(r.user.id, parsed.data.plan), log: await accessLog(r.user.id) });
 }
 
 /** Revoke access immediately. */
 export async function DELETE(_req: Request, ctx: IdCtx) {
   const r = await applicantFrom(ctx);
   if (r.error) return r.error;
-  return NextResponse.json({ user: revokeAccess(r.user.id), log: accessLog(r.user.id) });
+  return NextResponse.json({ user: await revokeAccess(r.user.id), log: await accessLog(r.user.id) });
 }

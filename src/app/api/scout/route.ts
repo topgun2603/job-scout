@@ -16,13 +16,13 @@ const isRunning = () => !!child && child.exitCode === null && !child.killed;
 export async function GET() {
   const g = await requireAdmin();
   if (g.error) return g.error;
-  return NextResponse.json({ running: isRunning(), log: lines.slice(-12), runs: recentRuns(5) });
+  return NextResponse.json({ running: isRunning(), log: lines.slice(-12), runs: await recentRuns(5) });
 }
 
 export async function POST() {
   const g = await requireAdmin();
   if (g.error) return g.error;
-  const last = recentRuns(1)[0];
+  const last = (await recentRuns(1))[0];
   const staleCutoff = Date.now() - 15 * 60_000;
   if (isRunning() || (last?.status === "running" && new Date(last.startedAt).getTime() > staleCutoff)) {
     return NextResponse.json({ error: "A scout run is already in progress." }, { status: 409 });

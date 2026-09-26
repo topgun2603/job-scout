@@ -12,6 +12,15 @@ cp .env.example .env        # optional: API keys for later phases
 
 Edit `config/profile.yaml` (graduation year, cities, skills, weekly goal) and `config/searches.yaml`.
 
+### Firebase
+
+All data lives in Firebase project `wellness-d3ec9`: Firestore holds users, sessions, passes, jobs and MNC roles, and Storage holds the resume PDFs. Every collection is prefixed `jobscout_`, and the server connects through the Admin SDK.
+
+- **Locally:** put the service-account key at `job-scout-service-account.json` in this folder. It is gitignored, so never commit it.
+- **On Vercel:** add an environment variable `FIREBASE_SERVICE_ACCOUNT` whose value is the whole contents of that JSON file, then redeploy.
+
+`npm run migrate-to-firebase` copies an old local `data/jobs.db` and its resumes into Firebase. It keeps every id, and it's safe to re-run.
+
 Create your admin login (run it again to reset the password):
 
 ```bash
@@ -79,7 +88,9 @@ Sources without a key are skipped with a note in the log. The same role found on
 src/lib/sources/naukri.ts   Playwright, no login. Reads GET /jobapi/v3/search (jobDetails[]),
                             falls back to parsing .srp-jobtuple-wrapper cards
 src/lib/pipeline/           normalize.ts  dedupe.ts  filters.ts  score.ts  run.ts
-src/lib/db.ts               SQLite (data/jobs.db)
+src/lib/firebase.ts         Admin SDK setup, jobscout_ collections, numeric id counters
+src/lib/db.ts               jobs + scout runs (Firestore)
+src/lib/users.ts            users, sessions, passes (Firestore) and resumes (Storage)
 src/app/                    Next.js dashboard + API routes (jobs, status, rescore, scout)
 ```
 

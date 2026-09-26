@@ -1,4 +1,3 @@
-import fs from "node:fs";
 import * as mupdf from "mupdf";
 import sharp from "sharp";
 import type { Profile } from "./config";
@@ -31,8 +30,8 @@ export function inspectPdf(bytes: Buffer): { pages: number; text: string } {
   return { pages, text };
 }
 
-export function resumeText(file: string): string {
-  return inspectPdf(fs.readFileSync(file)).text;
+export function resumeText(bytes: Buffer): string {
+  return inspectPdf(bytes).text;
 }
 
 // Small cache: rendering is the slow part and previews are requested repeatedly.
@@ -41,14 +40,14 @@ const CACHE_MAX = 40;
 
 /**
  * Renders one page to PNG. Blurring happens here, on the server, so a locked viewer never
- * receives the readable pixels (or the PDF) at all.
+ * receives the readable pixels (or the PDF) at all. `file` is the cache key; `load` fetches the PDF.
  */
-export async function renderPage(file: string, index: number, blur: BlurMode): Promise<Buffer> {
+export async function renderPage(file: string, load: () => Promise<Buffer>, index: number, blur: BlurMode): Promise<Buffer> {
   const key = `${file}|${index}|${blur}`;
   const hit = cache.get(key);
   if (hit) return hit;
 
-  const doc = open(fs.readFileSync(file));
+  const doc = open(await load());
   if (index < 0 || index >= doc.countPages()) throw new RangeError("page out of range");
   const pix = doc.loadPage(index).toPixmap(mupdf.Matrix.scale(SCALE, SCALE), mupdf.ColorSpace.DeviceRGB, false, true);
   const png = Buffer.from(pix.asPNG());

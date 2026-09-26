@@ -14,7 +14,7 @@ async function ownerFor(ctx: OwnerCtx): Promise<{ owner: PublicUser; isAdmin: bo
   if (g.error) return { error: g.error };
   const id = Number((await ctx.params).userId);
   if (g.user.role !== "admin" && g.user.id !== id) return { error: NextResponse.json({ error: "Not your resume." }, { status: 403 }) };
-  const owner = getUser(id);
+  const owner = await getUser(id);
   if (!owner) return { error: NextResponse.json({ error: "User not found." }, { status: 404 }) };
   return { owner, isAdmin: g.user.role === "admin" };
 }
@@ -31,7 +31,7 @@ export async function resumeList(ctx: OwnerCtx) {
   const r = await ownerFor(ctx);
   if (r.error) return r;
   const { owner, isAdmin } = r;
-  const resumes: ResumeView[] = listResumes(owner.id).map((x, i) => {
+  const resumes: ResumeView[] = (await listResumes(owner.id)).map((x, i) => {
     const included = isAdmin || i < owner.access.resumeLimit;
     return { ...x, included, unlocked: included && (isAdmin || owner.access.resumeUnlocked) };
   });
@@ -48,7 +48,7 @@ export async function resumeFor(ctx: ResumeCtx): Promise<
   const r = await ownerFor(ctx);
   if (r.error) return r;
   const { owner, isAdmin } = r;
-  const resume = getResume(owner.id, Number((await ctx.params).resumeId));
+  const resume = await getResume(owner.id, Number((await ctx.params).resumeId));
   if (!resume) return { error: NextResponse.json({ error: "Resume not found." }, { status: 404 }) };
   if (!isAdmin && resume.position >= owner.access.resumeLimit) {
     return { error: NextResponse.json({ error: `This resume is included with the ${PLANS["1m"].label} pass.` }, { status: 403 }) };

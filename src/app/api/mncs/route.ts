@@ -10,8 +10,8 @@ export async function GET() {
   const g = await requireAccess();
   if (g.error) return g.error;
   const { user } = g;
-  const companies = listMncCompanies();
-  const roles = listMncRoles();
+  const companies = await listMncCompanies();
+  const roles = await listMncRoles();
   const checkedAt = companies[0]?.checkedAt;
   if (user.role === "admin") return NextResponse.json({ roles, companies, checkedAt, readOnly: false });
   // Nothing about where or when the roles were found goes to applicants.

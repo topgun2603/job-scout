@@ -1,7 +1,7 @@
 import { createHash, randomBytes } from "node:crypto";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { getDb } from "./db";
+import { col } from "./firebase";
 import { getUser, type PublicUser } from "./users";
 
 export const SESSION_COOKIE = "jsf_session";
@@ -9,26 +9,27 @@ const SESSION_DAYS = 7;
 
 const sha = (s: string) => createHash("sha256").update(s).digest("hex");
 
-/** Creates a session and returns the raw token for the cookie; only its hash is stored. */
-export function createSession(userId: number): { token: string; expires: Date } {
+/** Creates a session and returns the raw token for the cookie; only its hash is stored (as the doc id). */
+export async function createSession(userId: number): Promise<{ token: string; expires: Date }> {
   const token = randomBytes(32).toString("base64url");
   const expires = new Date(Date.now() + SESSION_DAYS * 86_400_000);
-  const d = getDb();
-  d.prepare("DELETE FROM sessions WHERE expires_at < ?").run(new Date().toISOString());
-  d.prepare("INSERT INTO sessions (token_hash, user_id, expires_at) VALUES (?, ?, ?)").run(sha(token), userId, expires.toISOString());
+  await col("sessions").doc(sha(token)).set({ userId, expiresAt: expires.toISOString() });
+  // Sweep this user's expired sessions (a per-user query needs no composite index).
+  const old = await col("sessions").where("userId", "==", userId).get();
+  const now = new Date().toISOString();
+  await Promise.all(old.docs.filter((d) => (d.get("expiresAt") as string) < now).map((d) => d.ref.delete()));
   return { token, expires };
 }
 
-export function destroySession(token: string | undefined) {
-  if (token) getDb().prepare("DELETE FROM sessions WHERE token_hash = ?").run(sha(token));
+export async function destroySession(token: string | undefined) {
+  if (token) await col("sessions").doc(sha(token)).delete();
 }
 
-function userForToken(token: string | undefined): PublicUser | undefined {
+async function userForToken(token: string | undefined): Promise<PublicUser | undefined> {
   if (!token) return;
-  const row = getDb()
-    .prepare("SELECT user_id FROM sessions WHERE token_hash = ? AND expires_at > ?")
-    .get(sha(token), new Date().toISOString()) as { user_id: number } | undefined;
-  const user = row && getUser(row.user_id);
+  const s = await col("sessions").doc(sha(token)).get();
+  if (!s.exists || (s.get("expiresAt") as string) <= new Date().toISOString()) return;
+  const user = await getUser(s.get("userId") as number);
   return user && !user.disabled ? user : undefined;
 }
 

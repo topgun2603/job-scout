@@ -26,7 +26,7 @@ export async function GET() {
   // where a job came from (source name, source id, or a site named in the description).
   const readOnly = !user.access.full;
   const now = new Date();
-  const jobs = listJobsFor(user.id).map((j) => {
+  const jobs = (await listJobsFor(user.id)).map((j) => {
     if (user.role === "admin") return j;
     const s = scoreJob(j, profile, now);
     const preview = readOnly
@@ -43,7 +43,7 @@ export async function GET() {
       graduationYear: profile.graduation.year,
       weeklyGoal: base.weeklyGoal,
     },
-    runs: recentRuns(5),
+    runs: await recentRuns(5),
     readOnly,
   });
 }

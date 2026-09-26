@@ -8,3 +8,7 @@ data/discovery/
 *.tsbuildinfo
 next-env.d.ts
 data/resumes/
+
+# Firebase service-account keys (secrets)
+*service-account*.json
+*firebase-adminsdk*.json

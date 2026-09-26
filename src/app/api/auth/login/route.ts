@@ -15,11 +15,11 @@ export async function POST(req: Request) {
   const wait = loginLocked(username);
   if (wait) return NextResponse.json({ error: `Too many attempts. Try again in ${wait}s.` }, { status: 429 });
 
-  const user = checkCredentials(username, password);
+  const user = await checkCredentials(username, password);
   recordLogin(username, !!user);
   if (!user) return NextResponse.json({ error: "Wrong username or password." }, { status: 401 });
 
-  const { token, expires } = createSession(user.id);
+  const { token, expires } = await createSession(user.id);
   const res = NextResponse.json({ role: user.role });
   setSessionCookie(res, req, token, expires);
   return res;

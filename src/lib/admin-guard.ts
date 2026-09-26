@@ -8,7 +8,7 @@ export type IdCtx = { params: Promise<{ id: string }> };
 export async function applicantFrom(ctx: IdCtx): Promise<{ user: PublicUser; error?: never } | { user?: never; error: NextResponse }> {
   const g = await requireAdmin();
   if (g.error) return { error: g.error };
-  const user = getUser(Number((await ctx.params).id));
+  const user = await getUser(Number((await ctx.params).id));
   if (!user || user.role !== "applicant") return { error: NextResponse.json({ error: "Applicant not found." }, { status: 404 }) };
   return { user };
 }

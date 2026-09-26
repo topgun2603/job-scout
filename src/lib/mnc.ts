@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { MNC_PREVIEW, type AccessState } from "./access";
-import { getDb } from "./db";
+import { col, inBatches } from "./firebase";
 
 // Results of probing the MNCs' own careers pages (see scripts/import-mncs.ts).
 
@@ -65,72 +65,76 @@ const fileSchema = z.array(
 export type MncFile = z.input<typeof fileSchema>;
 
 /** Replaces the stored probe with this one. Throws on a malformed file. */
-export function importMnc(data: unknown, checkedAt = new Date().toISOString()): { companies: number; roles: number } {
+export async function importMnc(data: unknown, checkedAt = new Date().toISOString()): Promise<{ companies: number; roles: number }> {
   const companies = fileSchema.parse(data);
-  const d = getDb();
-  const addCompany = d.prepare(
-    "INSERT INTO mnc_companies (name, careers_url, status, note, checked_at) VALUES (?, ?, ?, ?, ?)",
+  // Ids are assigned here (the probe is replaced wholesale), so no counter is needed.
+  let roleId = 0;
+  const companyDocs = companies.map((c, i) => ({
+    id: i + 1,
+    name: c.company,
+    careersUrl: c.careersUrl ?? null,
+    status: c.status,
+    note: c.note ?? null,
+    checkedAt,
+    roles: c.roles.length,
+  }));
+  const roleDocs = companies.flatMap((c) =>
+    c.roles.map((r) => ({
+      id: ++roleId,
+      company: c.company,
+      title: r.title,
+      location: r.location ?? null,
+      experience: r.experience ?? null,
+      posted: r.posted ?? null,
+      url: r.url ?? null,
+      fit: r.fit,
+      why: r.why ?? null,
+    })),
   );
-  const addRole = d.prepare(
-    `INSERT INTO mnc_roles (company_id, title, location, experience, posted, url, fit, why)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-  );
-  let roles = 0;
-  d.transaction(() => {
-    d.exec("DELETE FROM mnc_roles; DELETE FROM mnc_companies;");
-    for (const c of companies) {
-      const id = addCompany.run(c.company, c.careersUrl ?? null, c.status, c.note ?? null, checkedAt).lastInsertRowid;
-      for (const r of c.roles) {
-        addRole.run(id, r.title, r.location ?? null, r.experience ?? null, r.posted ?? null, r.url ?? null, r.fit, r.why ?? null);
-        roles++;
-      }
-    }
-  })();
-  return { companies: companies.length, roles };
+
+  const [oldCompanies, oldRoles] = await Promise.all([col("mnc_companies").get(), col("mnc_roles").get()]);
+  await inBatches([...oldCompanies.docs, ...oldRoles.docs], (b, d) => b.delete(d.ref));
+  await inBatches(companyDocs, (b, c) => b.set(col("mnc_companies").doc(String(c.id)), c));
+  await inBatches(roleDocs, (b, r) => b.set(col("mnc_roles").doc(String(r.id)), r));
+  return { companies: companies.length, roles: roleDocs.length };
 }
 
 // ---- read ----
 
-type Raw = Record<string, unknown>;
+type Doc = Record<string, unknown>;
 const opt = <T>(v: unknown) => (v === null || v === undefined ? undefined : (v as T));
 
-export function listMncCompanies(): MncCompany[] {
-  const rows = getDb()
-    .prepare(
-      `SELECT c.*, (SELECT COUNT(*) FROM mnc_roles r WHERE r.company_id = c.id) AS roles
-       FROM mnc_companies c ORDER BY roles DESC, c.name`,
-    )
-    .all() as Raw[];
-  return rows.map((r) => ({
-    id: r.id as number,
-    name: r.name as string,
-    careersUrl: opt(r.careers_url),
-    status: r.status as MncStatus,
-    note: opt(r.note),
-    checkedAt: r.checked_at as string,
-    roles: r.roles as number,
-  }));
+export async function listMncCompanies(): Promise<MncCompany[]> {
+  return (await col("mnc_companies").get()).docs
+    .map((s) => s.data() as Doc)
+    .map((d) => ({
+      id: d.id as number,
+      name: d.name as string,
+      careersUrl: opt<string>(d.careersUrl),
+      status: d.status as MncStatus,
+      note: opt<string>(d.note),
+      checkedAt: d.checkedAt as string,
+      roles: d.roles as number,
+    }))
+    .sort((a, b) => b.roles - a.roles || a.name.localeCompare(b.name));
 }
 
 /** Best fit first; ties keep the order the probe reported them in. */
-export function listMncRoles(): MncRole[] {
-  const rows = getDb()
-    .prepare(
-      `SELECT r.*, c.name AS company FROM mnc_roles r JOIN mnc_companies c ON c.id = r.company_id
-       ORDER BY r.fit DESC, r.id`,
-    )
-    .all() as Raw[];
-  return rows.map((r) => ({
-    id: r.id as number,
-    company: r.company as string,
-    title: r.title as string,
-    location: opt(r.location),
-    experience: opt(r.experience),
-    posted: opt(r.posted),
-    url: opt(r.url),
-    fit: r.fit as number,
-    why: opt(r.why),
-  }));
+export async function listMncRoles(): Promise<MncRole[]> {
+  return (await col("mnc_roles").get()).docs
+    .map((s) => s.data() as Doc)
+    .map((d) => ({
+      id: d.id as number,
+      company: d.company as string,
+      title: d.title as string,
+      location: opt<string>(d.location),
+      experience: opt<string>(d.experience),
+      posted: opt<string>(d.posted),
+      url: opt<string>(d.url),
+      fit: d.fit as number,
+      why: opt<string>(d.why),
+    }))
+    .sort((a, b) => b.fit - a.fit || a.id - b.id);
 }
 
 /**

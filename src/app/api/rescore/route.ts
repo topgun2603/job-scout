@@ -10,7 +10,7 @@ export async function POST() {
   const g = await requireAdmin();
   if (g.error) return g.error;
   try {
-    return NextResponse.json(evaluateAll(loadConfig()));
+    return NextResponse.json(await evaluateAll(loadConfig()));
   } catch (e) {
     return NextResponse.json({ error: (e as Error).message }, { status: 400 });
   }

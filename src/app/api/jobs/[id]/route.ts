@@ -16,7 +16,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
   if (!Number.isInteger(id) || !parsed.success) {
     return NextResponse.json({ error: "expected { status: new | applied | skipped }" }, { status: 400 });
   }
-  return setUserJobStatus(g.user.id, id, parsed.data.status)
+  return await setUserJobStatus(g.user.id, id, parsed.data.status)
     ? NextResponse.json({ ok: true })
     : NextResponse.json({ error: "not found" }, { status: 404 });
 }

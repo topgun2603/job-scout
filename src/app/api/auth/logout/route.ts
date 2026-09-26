@@ -6,7 +6,7 @@ export const runtime = "nodejs";
 
 export async function POST() {
   const jar = await cookies();
-  destroySession(jar.get(SESSION_COOKIE)?.value);
+  await destroySession(jar.get(SESSION_COOKIE)?.value);
   const res = NextResponse.json({ ok: true });
   res.cookies.delete(SESSION_COOKIE);
   return res;

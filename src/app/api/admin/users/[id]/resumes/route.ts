@@ -19,8 +19,8 @@ export async function POST(req: Request, ctx: IdCtx) {
   const bytes = Buffer.from(await file.arrayBuffer());
   try {
     const info = inspectPdf(bytes);
-    const resume = addResume(r.user.id, bytes, file.name || "resume.pdf", info.pages, typeof label === "string" ? label : undefined);
-    return NextResponse.json({ resume, user: getUser(r.user.id), detected: detectSkills(info.text, loadConfig().profile) }, { status: 201 });
+    const resume = await addResume(r.user.id, bytes, file.name || "resume.pdf", info.pages, typeof label === "string" ? label : undefined);
+    return NextResponse.json({ resume, user: await getUser(r.user.id), detected: detectSkills(info.text, loadConfig().profile) }, { status: 201 });
   } catch (e) {
     const status = e instanceof ResumeLimitError ? 409 : 400;
     return NextResponse.json({ error: (e as Error).message }, { status });

@@ -1,175 +1,44 @@
-import Database from "better-sqlite3";
-import fs from "node:fs";
-import path from "node:path";
+import { col, inBatches, nextId } from "./firebase";
 import type { Job, JobRow, JobStatus, RunRow } from "./types";
 
-export const DB_PATH = path.resolve(process.cwd(), "data/jobs.db");
+// Jobs and scout runs in Firestore. Documents are keyed by their numeric id (as a string) and hold
+// the JobRow fields as-is. Queries stay on single fields so no composite indexes are needed.
 
-const SCHEMA = `
-CREATE TABLE IF NOT EXISTS jobs (
-  id              INTEGER PRIMARY KEY,
-  source          TEXT NOT NULL,
-  source_id       TEXT NOT NULL,
-  fingerprint     TEXT NOT NULL,          -- hash(lower(title)+lower(company))
-  title TEXT, company TEXT, location TEXT, remote INTEGER, country TEXT,
-  exp_min INTEGER, exp_max INTEGER, salary TEXT, skills TEXT, batch TEXT,
-  description TEXT, posted_at TEXT, url TEXT,
-  flags           TEXT,                   -- JSON array of warnings
-  score INTEGER, score_reasons TEXT, matched_skills TEXT,
-  filter_reason   TEXT,                   -- why the seniority filter dropped it
-  first_seen      TEXT NOT NULL,
-  last_seen       TEXT NOT NULL,
-  status          TEXT DEFAULT 'new',     -- new | applied | skipped | filtered
-  status_changed_at TEXT,
-  UNIQUE(source, source_id)
-);
-CREATE INDEX IF NOT EXISTS idx_fp ON jobs(fingerprint);
-CREATE INDEX IF NOT EXISTS idx_status ON jobs(status);
-
-CREATE TABLE IF NOT EXISTS users (
-  id              INTEGER PRIMARY KEY,
-  username        TEXT NOT NULL UNIQUE COLLATE NOCASE,
-  password_hash   TEXT NOT NULL,
-  role            TEXT NOT NULL DEFAULT 'applicant',   -- admin | applicant
-  full_name       TEXT NOT NULL DEFAULT '',
-  email TEXT, phone TEXT, graduation_year INTEGER,
-  locations       TEXT DEFAULT '[]',
-  core_skills     TEXT DEFAULT '[]',
-  bonus_skills    TEXT DEFAULT '[]',
-  notes           TEXT,
-  resume_path     TEXT, resume_name TEXT, resume_pages INTEGER, resume_size INTEGER, resume_uploaded_at TEXT,
-  access_plan     TEXT, access_expires_at TEXT,
-  disabled        INTEGER NOT NULL DEFAULT 0,
-  created_at      TEXT NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS sessions (
-  token_hash  TEXT PRIMARY KEY,
-  user_id     INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  expires_at  TEXT NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS access_log (
-  id          INTEGER PRIMARY KEY,
-  user_id     INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  action      TEXT NOT NULL,             -- grant | revoke
-  plan        TEXT,
-  expires_at  TEXT,
-  at          TEXT NOT NULL
-);
-
--- Up to 3 resume versions per applicant (the 1-month pass shows all 3, other passes the first).
-CREATE TABLE IF NOT EXISTS resumes (
-  id          INTEGER PRIMARY KEY,
-  user_id     INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  label       TEXT,
-  path        TEXT NOT NULL,
-  name        TEXT NOT NULL,
-  pages       INTEGER NOT NULL,
-  size        INTEGER NOT NULL,
-  uploaded_at TEXT NOT NULL
-);
-CREATE INDEX IF NOT EXISTS idx_resumes_user ON resumes(user_id);
-
--- Applied / skipped is per user; jobs.status only holds the shared filter verdict.
-CREATE TABLE IF NOT EXISTS user_jobs (
-  user_id     INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  job_id      INTEGER NOT NULL REFERENCES jobs(id) ON DELETE CASCADE,
-  status      TEXT NOT NULL,             -- applied | skipped
-  changed_at  TEXT NOT NULL,
-  PRIMARY KEY (user_id, job_id)
-);
-
--- MNC careers-page probe: one row per company checked, its matched roles below. Replaced wholesale on import.
-CREATE TABLE IF NOT EXISTS mnc_companies (
-  id          INTEGER PRIMARY KEY,
-  name        TEXT NOT NULL UNIQUE,
-  careers_url TEXT,
-  status      TEXT NOT NULL,             -- ok | no-match | blocked | error
-  note        TEXT,
-  checked_at  TEXT NOT NULL
-);
-CREATE TABLE IF NOT EXISTS mnc_roles (
-  id          INTEGER PRIMARY KEY,
-  company_id  INTEGER NOT NULL REFERENCES mnc_companies(id) ON DELETE CASCADE,
-  title       TEXT NOT NULL,
-  location    TEXT, experience TEXT, posted TEXT, url TEXT,
-  fit         INTEGER NOT NULL,          -- 1-5
-  why         TEXT
-);
-
-CREATE TABLE IF NOT EXISTS runs (
-  id          INTEGER PRIMARY KEY,
-  started_at  TEXT NOT NULL,
-  finished_at TEXT,
-  status      TEXT NOT NULL,              -- running | ok | error
-  fetched     INTEGER DEFAULT 0,
-  inserted    INTEGER DEFAULT 0,
-  message     TEXT
-);
-`;
-
-let db: Database.Database | undefined;
-
-export function getDb(): Database.Database {
-  if (!db) {
-    fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
-    db = new Database(DB_PATH);
-    db.pragma("journal_mode = WAL");
-    db.pragma("busy_timeout = 5000");
-    db.pragma("foreign_keys = ON");
-    db.exec(SCHEMA);
-    // One-time move from the old single-resume columns on users.
-    db.exec(`
-      INSERT INTO resumes (user_id, label, path, name, pages, size, uploaded_at)
-        SELECT id, NULL, resume_path, resume_name, COALESCE(resume_pages, 1), COALESCE(resume_size, 0), resume_uploaded_at
-        FROM users WHERE resume_path IS NOT NULL AND id NOT IN (SELECT user_id FROM resumes);
-      UPDATE users SET resume_path = NULL WHERE resume_path IS NOT NULL;
-    `);
-  }
-  return db;
-}
-
-type Raw = Record<string, unknown>;
-const json = <T>(v: unknown, fallback: T): T => {
-  try {
-    return v ? (JSON.parse(String(v)) as T) : fallback;
-  } catch {
-    return fallback;
-  }
-};
+type Doc = Record<string, unknown>;
 const opt = <T>(v: unknown) => (v === null || v === undefined ? undefined : (v as T));
 
-function toRow(r: Raw): JobRow {
+function toRow(d: Doc): JobRow {
   return {
-    id: r.id as number,
-    source: r.source as string,
-    sourceId: r.source_id as string,
-    fingerprint: r.fingerprint as string,
-    title: r.title as string,
-    company: r.company as string,
-    location: json<string[]>(r.location, []),
-    remote: Boolean(r.remote),
-    country: opt(r.country),
-    expMin: opt(r.exp_min),
-    expMax: opt(r.exp_max),
-    salary: opt(r.salary),
-    skills: json<string[]>(r.skills, []),
-    batch: opt(r.batch),
-    description: opt(r.description),
-    postedAt: opt(r.posted_at),
-    url: r.url as string,
-    flags: json<string[]>(r.flags, []),
-    score: (r.score as number) ?? 0,
-    scoreReasons: json<string[]>(r.score_reasons, []),
-    matchedSkills: json<string[]>(r.matched_skills, []),
-    filterReason: opt(r.filter_reason),
-    firstSeen: r.first_seen as string,
-    lastSeen: r.last_seen as string,
-    status: r.status as JobStatus,
-    statusChangedAt: opt(r.status_changed_at),
+    id: d.id as number,
+    source: d.source as string,
+    sourceId: d.sourceId as string,
+    fingerprint: d.fingerprint as string,
+    title: d.title as string,
+    company: d.company as string,
+    location: (d.location as string[]) ?? [],
+    remote: Boolean(d.remote),
+    country: opt(d.country),
+    expMin: opt(d.expMin),
+    expMax: opt(d.expMax),
+    salary: opt(d.salary),
+    skills: (d.skills as string[]) ?? [],
+    batch: opt(d.batch),
+    description: opt(d.description),
+    postedAt: opt(d.postedAt),
+    url: d.url as string,
+    flags: (d.flags as string[]) ?? [],
+    score: (d.score as number) ?? 0,
+    scoreReasons: (d.scoreReasons as string[]) ?? [],
+    matchedSkills: (d.matchedSkills as string[]) ?? [],
+    filterReason: opt(d.filterReason),
+    firstSeen: d.firstSeen as string,
+    lastSeen: d.lastSeen as string,
+    status: d.status as JobStatus,
+    statusChangedAt: opt(d.statusChangedAt),
   };
 }
+
+const byScore = (a: JobRow, b: JobRow) => b.score - a.score || (b.postedAt ?? "").localeCompare(a.postedAt ?? "");
 
 export interface UpsertResult {
   inserted: number;
@@ -178,59 +47,57 @@ export interface UpsertResult {
 }
 
 /**
- * Dedupe against the database: same (source, source_id) just refreshes last_seen;
+ * Dedupe against the store: same (source, sourceId) just refreshes lastSeen;
  * a different listing with the same fingerprint (repost, or another source) is skipped.
  */
-export function upsertJobs(jobs: Array<Job & { fingerprint: string }>, now = new Date().toISOString()): UpsertResult {
-  const d = getDb();
-  const bySourceId = d.prepare("SELECT id FROM jobs WHERE source = ? AND source_id = ?");
-  const byFingerprint = d.prepare("SELECT id FROM jobs WHERE fingerprint = ? LIMIT 1");
-  const touch = d.prepare("UPDATE jobs SET last_seen = ?, posted_at = COALESCE(?, posted_at) WHERE id = ?");
-  const insert = d.prepare(`
-    INSERT INTO jobs (source, source_id, fingerprint, title, company, location, remote, country, exp_min, exp_max,
-      salary, skills, batch, description, posted_at, url, flags, first_seen, last_seen, status)
-    VALUES (@source, @sourceId, @fingerprint, @title, @company, @location, @remote, @country, @expMin, @expMax,
-      @salary, @skills, @batch, @description, @postedAt, @url, @flags, @now, @now, 'new')`);
+export async function upsertJobs(jobs: Array<Job & { fingerprint: string }>, now = new Date().toISOString()): Promise<UpsertResult> {
+  const known = await col("jobs").select("source", "sourceId", "fingerprint").get();
+  const bySourceId = new Map<string, string>();
+  const byFingerprint = new Map<string, string>();
+  for (const d of known.docs) {
+    bySourceId.set(`${d.get("source")}|${d.get("sourceId")}`, d.id);
+    if (!byFingerprint.has(d.get("fingerprint"))) byFingerprint.set(d.get("fingerprint"), d.id);
+  }
 
   const result: UpsertResult = { inserted: 0, known: 0, duplicates: 0 };
-  d.transaction(() => {
-    for (const j of jobs) {
-      const same = bySourceId.get(j.source, j.sourceId) as { id: number } | undefined;
-      if (same) {
-        touch.run(now, j.postedAt ?? null, same.id);
-        result.known++;
-        continue;
-      }
-      const twin = byFingerprint.get(j.fingerprint) as { id: number } | undefined;
-      if (twin) {
-        touch.run(now, null, twin.id);
-        result.duplicates++;
-        continue;
-      }
-      insert.run({
-        ...j,
-        location: JSON.stringify(j.location),
-        remote: j.remote ? 1 : 0,
-        country: j.country ?? null,
-        expMin: j.expMin ?? null,
-        expMax: j.expMax ?? null,
-        salary: j.salary ?? null,
-        skills: JSON.stringify(j.skills),
-        batch: j.batch ?? null,
-        description: j.description ?? null,
-        postedAt: j.postedAt ?? null,
-        flags: JSON.stringify(j.flags),
-        now,
-      });
-      result.inserted++;
+  const touches: { id: string; postedAt?: string }[] = [];
+  const fresh: Array<Job & { fingerprint: string }> = [];
+  for (const j of jobs) {
+    const same = bySourceId.get(`${j.source}|${j.sourceId}`);
+    if (same) {
+      touches.push({ id: same, postedAt: j.postedAt });
+      result.known++;
+      continue;
     }
-  })();
+    const twin = byFingerprint.get(j.fingerprint);
+    if (twin) {
+      touches.push({ id: twin });
+      result.duplicates++;
+      continue;
+    }
+    fresh.push(j);
+    byFingerprint.set(j.fingerprint, "pending");
+  }
+
+  await inBatches(touches, (b, t) => b.update(col("jobs").doc(t.id), { lastSeen: now, ...(t.postedAt ? { postedAt: t.postedAt } : {}) }));
+  if (fresh.length) {
+    const first = await nextId("jobs", fresh.length);
+    await inBatches(
+      fresh.map((j, i) => ({ ...j, id: first + i })),
+      (b, j) => b.set(col("jobs").doc(String(j.id)), { ...j, score: 0, firstSeen: now, lastSeen: now, status: "new" }),
+    );
+  }
+  result.inserted = fresh.length;
   return result;
 }
 
+async function allJobs(): Promise<JobRow[]> {
+  return (await col("jobs").get()).docs.map((d) => toRow(d.data()));
+}
+
 /** Rows whose verdict can still change when the config changes. */
-export function jobsToEvaluate(): JobRow[] {
-  return (getDb().prepare("SELECT * FROM jobs WHERE status IN ('new', 'filtered')").all() as Raw[]).map(toRow);
+export async function jobsToEvaluate(): Promise<JobRow[]> {
+  return (await col("jobs").where("status", "in", ["new", "filtered"]).get()).docs.map((d) => toRow(d.data()));
 }
 
 export interface Evaluation {
@@ -243,91 +110,84 @@ export interface Evaluation {
   filterReason?: string;
 }
 
-export function saveEvaluations(evals: Evaluation[]) {
-  const d = getDb();
-  const stmt = d.prepare(`UPDATE jobs SET status = @status, score = @score, score_reasons = @reasons,
-      matched_skills = @matchedSkills, flags = @flags, filter_reason = @filterReason WHERE id = @id`);
-  d.transaction(() => {
-    for (const e of evals) {
-      stmt.run({
-        ...e,
-        reasons: JSON.stringify(e.reasons),
-        matchedSkills: JSON.stringify(e.matchedSkills),
-        flags: JSON.stringify(e.flags),
-        filterReason: e.filterReason ?? null,
-      });
-    }
-  })();
+export async function saveEvaluations(evals: Evaluation[]) {
+  await inBatches(evals, (b, e) =>
+    b.update(col("jobs").doc(String(e.id)), {
+      status: e.status,
+      score: e.score,
+      scoreReasons: e.reasons,
+      matchedSkills: e.matchedSkills,
+      flags: e.flags,
+      filterReason: e.filterReason ?? null,
+    }),
+  );
 }
+
+const userJobId = (userId: number, jobId: number) => `${userId}_${jobId}`;
 
 /** All jobs as one user sees them: the shared filter verdict plus that user's applied / skipped marks. */
-export function listJobsFor(userId: number): JobRow[] {
-  const rows = getDb()
-    .prepare(
-      `SELECT jobs.*, uj.status AS user_status, uj.changed_at AS user_changed_at
-       FROM jobs LEFT JOIN user_jobs uj ON uj.job_id = jobs.id AND uj.user_id = ?
-       ORDER BY jobs.score DESC, jobs.posted_at DESC`,
-    )
-    .all(userId) as Raw[];
-  return rows.map((r) => {
-    const row = toRow(r);
-    if (row.status !== "filtered") row.status = (r.user_status as JobStatus | null) ?? "new";
-    row.statusChangedAt = opt(r.user_changed_at);
-    return row;
-  });
+export async function listJobsFor(userId: number): Promise<JobRow[]> {
+  const [jobs, marks] = await Promise.all([allJobs(), col("user_jobs").where("userId", "==", userId).get()]);
+  const mine = new Map(marks.docs.map((d) => [d.get("jobId") as number, d.data()]));
+  return jobs
+    .map((row) => {
+      const m = mine.get(row.id);
+      if (row.status !== "filtered") row.status = (m?.status as JobStatus | undefined) ?? "new";
+      row.statusChangedAt = opt(m?.changedAt);
+      return row;
+    })
+    .sort(byScore);
 }
 
-export function setUserJobStatus(userId: number, jobId: number, status: "new" | "applied" | "skipped"): boolean {
-  const d = getDb();
-  if (!d.prepare("SELECT 1 FROM jobs WHERE id = ?").get(jobId)) return false;
-  if (status === "new") d.prepare("DELETE FROM user_jobs WHERE user_id = ? AND job_id = ?").run(userId, jobId);
-  else
-    d.prepare(
-      `INSERT INTO user_jobs (user_id, job_id, status, changed_at) VALUES (?, ?, ?, ?)
-       ON CONFLICT(user_id, job_id) DO UPDATE SET status = excluded.status, changed_at = excluded.changed_at`,
-    ).run(userId, jobId, status, new Date().toISOString());
+export async function setUserJobStatus(userId: number, jobId: number, status: "new" | "applied" | "skipped"): Promise<boolean> {
+  if (!(await col("jobs").doc(String(jobId)).get()).exists) return false;
+  const ref = col("user_jobs").doc(userJobId(userId, jobId));
+  if (status === "new") await ref.delete();
+  else await ref.set({ userId, jobId, status, changedAt: new Date().toISOString() });
   return true;
 }
 
-export function topNewJobs(limit: number, minScore: number): JobRow[] {
-  const rows = getDb()
-    .prepare(
-      `SELECT * FROM jobs WHERE status = 'new' AND score >= ? AND (flags IS NULL OR flags NOT LIKE '%possible-scam%')
-       ORDER BY score DESC, posted_at DESC LIMIT ?`,
-    )
-    .all(minScore, limit) as Raw[];
-  return rows.map(toRow);
+export async function topNewJobs(limit: number, minScore: number): Promise<JobRow[]> {
+  return (await col("jobs").where("status", "==", "new").get()).docs
+    .map((d) => toRow(d.data()))
+    .filter((j) => j.score >= minScore && !j.flags.some((f) => f.includes("possible-scam")))
+    .sort(byScore)
+    .slice(0, limit);
 }
 
 // ---- runs ----
 
-function toRun(r: Raw): RunRow {
+function toRun(d: Doc): RunRow {
   return {
-    id: r.id as number,
-    startedAt: r.started_at as string,
-    finishedAt: opt(r.finished_at),
-    status: r.status as RunRow["status"],
-    fetched: (r.fetched as number) ?? 0,
-    inserted: (r.inserted as number) ?? 0,
-    message: opt(r.message),
+    id: d.id as number,
+    startedAt: d.startedAt as string,
+    finishedAt: opt(d.finishedAt),
+    status: d.status as RunRow["status"],
+    fetched: (d.fetched as number) ?? 0,
+    inserted: (d.inserted as number) ?? 0,
+    message: opt(d.message),
   };
 }
 
-export function startRun(): number {
-  const d = getDb();
+export async function startRun(): Promise<number> {
   // A run that never finished (killed process) should not block the next one forever.
-  d.prepare(
-    "UPDATE runs SET status = 'error', message = 'interrupted' WHERE status = 'running' AND started_at < ?",
-  ).run(new Date(Date.now() - 15 * 60_000).toISOString());
-  return Number(d.prepare("INSERT INTO runs (started_at, status) VALUES (?, 'running')").run(new Date().toISOString()).lastInsertRowid);
+  const cutoff = new Date(Date.now() - 15 * 60_000).toISOString();
+  const stuck = await col("runs").where("status", "==", "running").get();
+  await inBatches(
+    stuck.docs.filter((d) => (d.get("startedAt") as string) < cutoff),
+    (b, d) => b.update(d.ref, { status: "error", message: "interrupted" }),
+  );
+  const id = await nextId("runs");
+  await col("runs").doc(String(id)).set({ id, startedAt: new Date().toISOString(), status: "running", fetched: 0, inserted: 0 });
+  return id;
 }
 
-export function finishRun(id: number, patch: { status: "ok" | "error"; fetched: number; inserted: number; message?: string }) {
-  getDb()
-    .prepare("UPDATE runs SET finished_at = ?, status = ?, fetched = ?, inserted = ?, message = ? WHERE id = ?")
-    .run(new Date().toISOString(), patch.status, patch.fetched, patch.inserted, patch.message ?? null, id);
+export async function finishRun(id: number, patch: { status: "ok" | "error"; fetched: number; inserted: number; message?: string }) {
+  await col("runs")
+    .doc(String(id))
+    .update({ finishedAt: new Date().toISOString(), ...patch, message: patch.message ?? null });
 }
 
-export function recentRuns(limit = 10): RunRow[] {
-  return (getDb().prepare("SELECT * FROM runs ORDER BY id DESC LIMIT ?").all(limit) as Raw[]).map(toRun);
+export async function recentRuns(limit = 10): Promise<RunRow[]> {
+  return (await col("runs").orderBy("id", "desc").limit(limit).get()).docs.map((d) => toRun(d.data()));
 }

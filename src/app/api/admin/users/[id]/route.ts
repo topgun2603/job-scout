@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 export async function GET(_req: Request, ctx: IdCtx) {
   const r = await applicantFrom(ctx);
   if (r.error) return r.error;
-  return NextResponse.json({ user: r.user, log: accessLog(r.user.id) });
+  return NextResponse.json({ user: r.user, log: await accessLog(r.user.id) });
 }
 
 export async function PATCH(req: Request, ctx: IdCtx) {
@@ -17,12 +17,12 @@ export async function PATCH(req: Request, ctx: IdCtx) {
   if (r.error) return r.error;
   const parsed = updateUserBody.safeParse(await req.json().catch(() => ({})));
   if (!parsed.success) return NextResponse.json({ error: firstIssue(parsed.error) }, { status: 400 });
-  return NextResponse.json(updateUser(r.user.id, parsed.data));
+  return NextResponse.json(await updateUser(r.user.id, parsed.data));
 }
 
 export async function DELETE(_req: Request, ctx: IdCtx) {
   const r = await applicantFrom(ctx);
   if (r.error) return r.error;
-  deleteUser(r.user.id);
+  await deleteUser(r.user.id);
   return NextResponse.json({ ok: true });
 }
