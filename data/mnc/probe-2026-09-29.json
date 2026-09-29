@@ -1,0 +1,1152 @@
+[
+ {
+  "company": "TCS",
+  "careersUrl": "https://www.tcs.com/careers/india",
+  "status": "blocked",
+  "note": "tcs.com still returns 403 to curl (checked 2026-09-29). Fresher hiring runs through TCS NQT; check manually.",
+  "roles": []
+ },
+ {
+  "company": "Infosys",
+  "careersUrl": "https://career.infosys.com/joblist",
+  "status": "ok",
+  "note": "getCareerSearchJobs API: 1,745 openings (up from 1,550). No 0-yr tech roles; 23 have min exp <=1, mostly SAP/finance/consulting. New since last run: four SAP roles at 1-2 yrs (Bangalore, 2026-09-26). Fresher hiring is off-portal (InfyTQ/HackWithInfy).",
+  "roles": [
+   {
+    "title": "Software Developer (Java Full Stack / Python GenAI) (Associate Business Analyst)",
+    "location": "Hyderabad, India",
+    "experience": "1-3 yrs",
+    "posted": "2026-08-17",
+    "url": "https://career.infosys.com/jobdesc?jobReferenceCode=INFSYS-EXTERNAL-251212&sourceId=1",
+    "fit": 3,
+    "why": "Java full stack / Python GenAI dev; 1-3 yrs is a stretch for a fresher"
+   },
+   {
+    "title": "Python with Gen AI (Associate Business Analyst)",
+    "location": "Bangalore, India",
+    "experience": "1-2 yrs",
+    "posted": "2026-08-05",
+    "url": "https://career.infosys.com/jobdesc?jobReferenceCode=INFSYS-EXTERNAL-250658&sourceId=1",
+    "fit": 3,
+    "why": "Python + GenAI/REST fits Groq/LLaMA project work; 1-2 yrs"
+   },
+   {
+    "title": "AWS Developer_JL3 (Associate Business Analyst)",
+    "location": "Coimbatore, India",
+    "experience": "1-2 yrs",
+    "posted": "2026-08-24",
+    "url": "https://career.infosys.com/jobdesc?jobReferenceCode=INFSYS-EXTERNAL-251558&sourceId=1",
+    "fit": 2,
+    "why": "Coimbatore is a preferred city, but the role is cloud-heavy; 1-2 yrs"
+   },
+   {
+    "title": "Sap UI5/Fiori Consultant (Associate Business Analyst)",
+    "location": "Bangalore, India",
+    "experience": "1-2 yrs",
+    "posted": "2026-09-26",
+    "url": "https://career.infosys.com/jobdesc?jobReferenceCode=INFSYS-EXTERNAL-253178&sourceId=1",
+    "fit": 2,
+    "why": "New. JS-based SAP front-end work; niche SAP stack; 1-2 yrs"
+   },
+   {
+    "title": "Agentic AI Engineer (Associate Business Analyst)",
+    "location": "Bangalore, India",
+    "experience": "1-4 yrs",
+    "posted": "2026-07-06",
+    "url": "https://career.infosys.com/jobdesc?jobReferenceCode=INFSYS-EXTERNAL-249155&sourceId=1",
+    "fit": 2,
+    "why": "AI engineering matches LLM project interest; 1-4 yrs"
+   }
+  ]
+ },
+ {
+  "company": "HCLTech",
+  "careersUrl": "https://careers.hcltech.com/",
+  "status": "ok",
+  "note": "SuccessFactors API: 328 'Campus' hits, 268 India campus postings. Classified from their JDs; most are embedded, semiconductor, SAP or support. Hyderabad .NET 167871 is gone; 165611 is a live Hyderabad .NET posting. New: full-stack Java fresher role in Chennai.",
+  "roles": [
+   {
+    "title": "Campus-Advanced Beginner (Full Stack Java, fresh graduates)",
+    "location": "Chennai, Tamil Nadu",
+    "experience": "Fresh graduates (training program)",
+    "posted": "2026-09-02",
+    "url": "https://careers.hcltech.com/job/Campus-Advanced-Beginner/159474-en_US/",
+    "fit": 5,
+    "why": "Fresh-grad full-stack web development with Java and modern front-end, in Chennai"
+   },
+   {
+    "title": "Campus-Beginner (Java Developer, fresh graduates)",
+    "location": "Chennai, Tamil Nadu",
+    "experience": "Fresh graduates (training program)",
+    "posted": "2026-09-19",
+    "url": "https://careers.hcltech.com/job/Campus-Beginner/168116-en_US/",
+    "fit": 5,
+    "why": "Fresh-grad Java developer role in Chennai"
+   },
+   {
+    "title": "Campus-Beginner (.NET Developer, fresh graduates)",
+    "location": "Bengaluru, Karnataka",
+    "experience": "Fresh graduates (training program)",
+    "posted": "2026-09-22",
+    "url": "https://careers.hcltech.com/job/Campus-Beginner/169845-en_US/",
+    "fit": 4,
+    "why": "Fresher dev role in a preferred city; .NET stack"
+   },
+   {
+    "title": "Campus-Beginner (.NET application developer)",
+    "location": "Hyderabad, Telangana",
+    "experience": "Campus / fresher",
+    "posted": "2026-09-19",
+    "url": "https://careers.hcltech.com/job/Campus-Beginner/165611-en_US/",
+    "fit": 4,
+    "why": "Campus dev role in Hyderabad; .NET stack"
+   },
+   {
+    "title": "Campus-Beginner (.NET Developer, fresh graduates)",
+    "location": "Pune, Maharashtra",
+    "experience": "Fresh graduates (training program)",
+    "posted": "2026-09-18",
+    "url": "https://careers.hcltech.com/job/Campus-Beginner/168115-en_US/",
+    "fit": 4,
+    "why": "Fresher dev role in Pune; .NET stack"
+   }
+  ]
+ },
+ {
+  "company": "Wipro",
+  "careersUrl": "https://careers.wipro.com/",
+  "status": "ok",
+  "note": "SuccessFactors API (India; 7 keywords). India dev roles are L1+ (3-5+ yrs). The only entry-level tech postings are testing trainees. Fresher hiring runs through Elite NLTH.",
+  "roles": [
+   {
+    "title": "Graduate Engineer Trainee (testing support)",
+    "location": "Gurugram, Haryana",
+    "experience": "Graduate trainee",
+    "posted": "2026-09-28",
+    "url": "https://careers.wipro.com/job/Graduate-Engineer-Trainee/201955-en_US/",
+    "fit": 2,
+    "why": "New. Entry level, but QA/test-data work, not development; non-preferred city"
+   },
+   {
+    "title": "Trainee (testing support)",
+    "location": "Gurugram, Haryana",
+    "experience": "Trainee (not stated)",
+    "posted": "2026-09-23",
+    "url": "https://careers.wipro.com/job/Trainee/203199-en_US/",
+    "fit": 2,
+    "why": "Entry level, but QA/test-data work; non-preferred city"
+   }
+  ]
+ },
+ {
+  "company": "Tech Mahindra",
+  "careersUrl": "https://careers.techmahindra.com/CurrentOpportunity.aspx",
+  "status": "no-match",
+  "note": "ASP.NET search (India; keywords software engineer/fresher/trainee/java/react/associate/developer): India roles are all 3+ yrs; fresher/trainee return nothing.",
+  "roles": []
+ },
+ {
+  "company": "LTIMindtree",
+  "careersUrl": "https://ltimindtree.ripplehire.com/candidate/?token=xviyQvbnyYZdGtozXoNm&lang=en&source=CAREERSITE#list/geo=India",
+  "status": "no-match",
+  "note": "RippleHire API: 451 India jobs. Only two have min exp <=1: Engineer - Cloud & Infra Management (Bengaluru, 1-3 yrs, infra ops, job 882830) and a cybersecurity consultant. No dev roles; campus hiring is not listed.",
+  "roles": []
+ },
+ {
+  "company": "Persistent Systems",
+  "careersUrl": "https://careers.persistent.com/",
+  "status": "ok",
+  "note": "Zwayam API: 625 jobs. No fresher dev roles. Only weak 2-yr-min matches.",
+  "roles": [
+   {
+    "title": ".NET Full Stack Developer",
+    "location": "Hyderabad",
+    "experience": "2-4 yrs",
+    "posted": "2026-09-28",
+    "url": "https://careers.persistent.com/#!/jobview/programmer-dev-india-hyderabad-2026091616261245",
+    "fit": 2,
+    "why": "Full-stack dev, but .NET and needs 2+ yrs"
+   },
+   {
+    "title": "C# .NET Developer",
+    "location": "Pune",
+    "experience": "2-5 yrs",
+    "posted": "2026-09-28",
+    "url": "https://careers.persistent.com/#!/jobview/programmer-dev-india-pune-2026042417443646",
+    "fit": 1,
+    "why": "Dev role in Pune, but C#/.NET and 2+ yrs"
+   },
+   {
+    "title": "SIEM L1 Analyst",
+    "location": "Pune",
+    "experience": "1-2 yrs (freshers with training may be considered)",
+    "posted": "2026-09-24",
+    "url": "https://careers.persistent.com/#!/jobview/support-engineer-india-pune-2026081118392463",
+    "fit": 1,
+    "why": "Open to freshers, but security ops, not development"
+   }
+  ]
+ },
+ {
+  "company": "Coforge",
+  "careersUrl": "https://careers.coforge.com/coforge/",
+  "status": "no-match",
+  "note": "Zwayam API: 110 jobs. India tech roles are Senior Engineer (3-5 yrs) and up; low-exp roles are US/Mexico call-center or workplace services.",
+  "roles": []
+ },
+ {
+  "company": "Mphasis",
+  "careersUrl": "https://mphasis.ripplehire.com/candidate/?token=ty4DfyWddnOrtpclQeia&source=CAREERSITE#list",
+  "status": "no-match",
+  "note": "RippleHire API: 213 jobs. 'Associate Software Engineer' (Bangalore, 880953) is a 5+ yr deployment lead per last run's JD check. Other low-exp India roles are transaction processing, service desk or infra.",
+  "roles": []
+ },
+ {
+  "company": "L&T Technology Services",
+  "careersUrl": "https://ltts.sensehq.com/careers",
+  "status": "no-match",
+  "note": "Sense portal (paged ?page=N): 135 jobs. India roles are embedded, SDET, C# (6-8 yrs), lead or plant engineering. No fresher openings.",
+  "roles": []
+ },
+ {
+  "company": "Hexaware",
+  "careersUrl": "https://jobs.hexaware.com/",
+  "status": "no-match",
+  "note": "Oracle Recruiting Cloud API re-checked (software/developer/java/react/full stack/fresher/graduate/trainee); India tech roles 2-10+ yrs (Java Full Stack 10+, Gen AI Dev 2-7, System Analyst Jr 3-7); fresher hits are BPS voice only",
+  "roles": []
+ },
+ {
+  "company": "Cyient",
+  "careersUrl": "https://careers.cyient.com/cyient/",
+  "status": "blocked",
+  "note": "careers.cyient.com and its Zwayam API (public.zwayam.com) accept connections but never respond this run (timeouts); last run found no fresher roles (all 2-8 yrs). Check manually",
+  "roles": []
+ },
+ {
+  "company": "KPIT Technologies",
+  "careersUrl": "https://www.kpit.com/job-listing/?show_all=1",
+  "status": "ok",
+  "note": "91 listings; India 0-yr roles are only Mechanical Trainee (Coimbatore), HRBP Intern and finance; closest tech fit is weak",
+  "roles": [
+   {
+    "title": "C++ Expert",
+    "location": "Bangalore, Chennai, Kochi, Pune",
+    "experience": "2-20 years",
+    "posted": "",
+    "url": "https://talentojo.kpit.com/tojo/app/job-apply/#/Career%20Portal/47367",
+    "fit": 2,
+    "why": "C++ skill match, preferred cities, but min 2 yrs and automotive/embedded focus"
+   }
+  ]
+ },
+ {
+  "company": "Zensar Technologies",
+  "careersUrl": "https://fa-etvl-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/jobs",
+  "status": "ok",
+  "note": "Oracle Recruiting Cloud API; 0 fresher hits, 'Associate' titles need 3-8 yrs; most dev roles 3-10 yrs. Only Java full-stack roles without stated min experience listed",
+  "roles": [
+   {
+    "title": "Full Stack Developer",
+    "location": "Pune, Maharashtra, India",
+    "experience": "not stated ('strong experience' required)",
+    "posted": "2026-09-28",
+    "url": "https://fa-etvl-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/151570",
+    "fit": 2,
+    "why": "New: Java full stack, Spring/Hibernate, REST, SQL, Git match; Angular not React; likely experienced hire"
+   },
+   {
+    "title": "Java FullStack Engineer",
+    "location": "Chennai, Tamil Nadu, India",
+    "experience": "not stated",
+    "posted": "2026-09-23",
+    "url": "https://fa-etvl-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/150098_9",
+    "fit": 2,
+    "why": "Java/Spring Boot/REST/JWT stack, Chennai; likely experienced hire (banking, Kafka, Angular)"
+   }
+  ]
+ },
+ {
+  "company": "Birlasoft",
+  "careersUrl": "https://jobs.birlasoft.com/search/?q=&locationsearch=India",
+  "status": "ok",
+  "note": "SuccessFactors search (635 India jobs); MERN Full Stack 8-12 yrs, new Java Full Stack Hyderabad 10+ yrs (excluded). Graduate roles are enterprise-apps consulting, not web dev",
+  "roles": [
+   {
+    "title": "Developer-Enterprise Apps (graduate, Oracle OTM consulting)",
+    "location": "Pune (Hinjawadi), India",
+    "experience": "Fresh engineering/management graduates (B.E eligible)",
+    "posted": "Sep 12, 2026",
+    "url": "https://jobs.birlasoft.com/job/Pune-Developer-Enterprise-Apps-INDI/58879444/",
+    "fit": 3,
+    "why": "Explicit graduate hiring, B.E eligible, Pune; Oracle OTM not his stack"
+   },
+   {
+    "title": "Analyst-Enterprise Apps (graduate, Oracle OTM consulting)",
+    "location": "Pune (Hinjawadi), India",
+    "experience": "Fresh engineering/management graduates (B.E eligible)",
+    "posted": "Sep 12, 2026",
+    "url": "https://jobs.birlasoft.com/job/Pune-Analyst-Enterprise-Apps-INDI/58875944/",
+    "fit": 3,
+    "why": "Same OTM graduate program, analyst track; B.E eligible, Pune"
+   },
+   {
+    "title": "Analyst-Enterprise Apps (graduate, SAP functional)",
+    "location": "Pune (Hinjawadi), India",
+    "experience": "Graduates (BE/B.Tech)",
+    "posted": "Sep 26, 2026",
+    "url": "https://jobs.birlasoft.com/job/Pune-Analyst-Enterprise-Apps-INDI/59309044/",
+    "fit": 2,
+    "why": "Graduate hiring but SAP functional consulting, not development"
+   },
+   {
+    "title": "Jr Trainee",
+    "location": "Noida, India",
+    "experience": "Trainee (JD empty)",
+    "posted": "Sep 16, 2026",
+    "url": "https://jobs.birlasoft.com/job/Noida-Jr-Trainee-INDI/59812144/",
+    "fit": 2,
+    "why": "Entry-level trainee title; no JD details, role family unclear"
+   },
+   {
+    "title": "Java GHCP Developer",
+    "location": "Bengaluru, India",
+    "experience": "not stated",
+    "posted": "Sep 23, 2026",
+    "url": "https://jobs.birlasoft.com/job/Bengaluru-Java-GHCP-Developer-INDI/60025644/",
+    "fit": 2,
+    "why": "Java + Spring Boot REST APIs + MySQL match, Bengaluru; likely experienced (also Java API Developer reqs)"
+   }
+  ]
+ },
+ {
+  "company": "Sonata Software",
+  "careersUrl": "https://www.sonata-software.com/careers/applynow",
+  "status": "blocked",
+  "note": "Re-checked: own careers site still has only a general apply form, no public job listings/API; check manually (openings appear on Naukri/LinkedIn)",
+  "roles": []
+ },
+ {
+  "company": "Mastek",
+  "careersUrl": "https://careers.mastek.com/search/?q=&locationsearch=India",
+  "status": "no-match",
+  "note": "SuccessFactors search: 24 jobs; India roles are Oracle/architect/manager; 'Software Engineer' reqs need 3-6 yrs or are 2-4 yr Data Analyst (Noida)",
+  "roles": []
+ },
+ {
+  "company": "Tata Elxsi",
+  "careersUrl": "https://www.tataelxsi.com/careers/job-openings",
+  "status": "no-match",
+  "note": "All 78 openings re-scanned; lowest India tech min is 3 yrs (Java/Angular/AWS Full Stack 3-6 yrs Bangalore); no fresher roles",
+  "roles": []
+ },
+ {
+  "company": "Accenture",
+  "careersUrl": "https://accenture.wd103.myworkdayjobs.com/AccentureCareers",
+  "status": "ok",
+  "note": "Workday API; Kochi Associate Engineer reqs still open (FrontEnd 1-2, Backend 1-4 duplicates); most ATCI Custom Software Engineer roles need 2-7 yrs",
+  "roles": [
+   {
+    "title": "Associate Engineer - FrontEnd",
+    "location": "Kochi, India",
+    "experience": "1-2 years",
+    "posted": "2026-09-18",
+    "url": "https://accenture.wd103.myworkdayjobs.com/AccentureCareers/job/Kochi/Associate-Engineer---FrontEnd_R00357354",
+    "fit": 4,
+    "why": "HTML/CSS/JS must-have, React good-to-have; associate level (also FrontEnd 2 R00357359)"
+   },
+   {
+    "title": "Associate Engineer - Backend",
+    "location": "Kochi, India",
+    "experience": "1-2 years",
+    "posted": "2026-09-18",
+    "url": "https://accenture.wd103.myworkdayjobs.com/AccentureCareers/job/Kochi/Associate-Engineer---Backend_R00357520",
+    "fit": 4,
+    "why": "Java/Spring Boot must-have, associate level (also Backend 2/3/4 reqs)"
+   },
+   {
+    "title": "Custom Software Engineering Associate",
+    "location": "Mumbai, India",
+    "experience": "1-3 years, any graduate",
+    "posted": "2026-09-23",
+    "url": "https://accenture.wd103.myworkdayjobs.com/AccentureCareers/job/Mumbai/Custom-Software-Engineering-Associate_AIOC-S01657845-1",
+    "fit": 3,
+    "why": "New: associate-level web/HTML development, any graduate; 1-yr floor, Mumbai"
+   },
+   {
+    "title": "Web Developer",
+    "location": "Bengaluru, India",
+    "experience": "min 2 years",
+    "posted": "2026-02-26",
+    "url": "https://accenture.wd103.myworkdayjobs.com/AccentureCareers/job/Bengaluru/Web-Developer_ATCI-5440347-S1983706-1",
+    "fit": 3,
+    "why": "React.js must-have, preferred city; 2-yr minimum"
+   },
+   {
+    "title": "FrontEnd Developer",
+    "location": "Kochi, India",
+    "experience": "2-3 years",
+    "posted": "2026-09-18",
+    "url": "https://accenture.wd103.myworkdayjobs.com/AccentureCareers/job/Kochi/FrontEnd-Developer_R00357362",
+    "fit": 2,
+    "why": "JavaScript/Next.js/React frontend; 2-yr minimum is a stretch"
+   }
+  ]
+ },
+ {
+  "company": "Cognizant",
+  "careersUrl": "https://careers.cognizant.com/india-en/jobs/",
+  "status": "ok",
+  "note": "Site keyword search now ignores query params; used the site's own full RSS feed (/india-en/jobs/xml/?rss=true, 2072 jobs, 541 India). Nearly all India dev roles 3-12 yrs; freshers hired via campus/GenC. Weak matches only",
+  "roles": [
+   {
+    "title": "React Native Developer",
+    "location": "Kolkata, West Bengal, India",
+    "experience": "not stated",
+    "posted": "2026-08-17",
+    "url": "https://careers.cognizant.com/india-en/jobs/00070129302/react-native-developer/",
+    "fit": 2,
+    "why": "React JS/React Native + REST APIs + Git; experience unstated, likely experienced"
+   },
+   {
+    "title": "Java Developer (AWS)",
+    "location": "Chennai, Tamil Nadu, India",
+    "experience": "not stated",
+    "posted": "2026-09-23",
+    "url": "https://careers.cognizant.com/india-en/jobs/00070527821/java-developer-aws/",
+    "fit": 2,
+    "why": "Java + Python + AWS, Chennai; experience unstated"
+   },
+   {
+    "title": "Software Engineer (C Developer)",
+    "location": "Mumbai, India",
+    "experience": "1+ years",
+    "posted": "2026-09-09",
+    "url": "https://careers.cognizant.com/india-en/jobs/00070403651/software-engineer/",
+    "fit": 2,
+    "why": "Low experience bar, C/Linux/DSA; not web stack"
+   },
+   {
+    "title": "Java Developer",
+    "location": "Mumbai, India",
+    "experience": "not stated (JD empty)",
+    "posted": "2026-09-07",
+    "url": "https://careers.cognizant.com/india-en/jobs/00070128084/java-developer/",
+    "fit": 2,
+    "why": "Java developer title; no JD details"
+   },
+   {
+    "title": "Developer (IBM BAW, JavaScript, SQL)",
+    "location": "Hyderabad, India",
+    "experience": "not stated",
+    "posted": "2026-09-05",
+    "url": "https://careers.cognizant.com/india-en/jobs/00069275601/developer/",
+    "fit": 1,
+    "why": "JavaScript/SQL overlap but niche IBM BAW platform"
+   }
+  ]
+ },
+ {
+  "company": "Capgemini",
+  "careersUrl": "https://www.capgemini.com/in-en/careers/job-search/",
+  "status": "ok",
+  "note": "Re-scanned all 880 India postings via the Capgemini job-search API. Every posting is graded 'Experienced Professionals' or 'Executives'. Only 1 SE role carries the 'entry level in Software Engineering' grade text, and it is the same role as last run. Freshers are mostly hired through campus/off-campus drives, which are not on this board.",
+  "roles": [
+   {
+    "title": "fullstack angular",
+    "location": "Chennai",
+    "experience": "Entry-level SE grade text (no years stated)",
+    "posted": "2026-07-06",
+    "url": "https://careers.capgemini.com/job/Chennai-%28ex-Madras%29-fullstack-angular/1411965933/?feedId=388633&utm_source=CareerSite&tcsource=apply",
+    "fit": 4,
+    "why": "Entry-level full-stack SE in Chennai; uses Angular rather than React"
+   }
+  ]
+ },
+ {
+  "company": "IBM",
+  "careersUrl": "https://www.ibm.com/careers/search?field_keyword_18[0]=Entry%20Level&field_keyword_05[0]=India",
+  "status": "ok",
+  "note": "IBM search API shows 1 India posting marked Entry Level. It is new; last run's 'Software Engineer (India Systems Development Lab)' posting is gone. The job-detail page returns an empty response to curl/WebFetch, so the description could not be read. All other India dev roles are 'Professional'.",
+  "roles": [
+   {
+    "title": "Associate System Engineer",
+    "location": "Multiple Cities (India)",
+    "experience": "Entry Level (IBM band); description not readable",
+    "posted": "2026-09-29",
+    "url": "https://careers.ibm.com/careers/JobDetail?jobId=133547",
+    "fit": 3,
+    "why": "New entry-level role in the Software Engineering category in India; could not confirm the stack or cities"
+   }
+  ]
+ },
+ {
+  "company": "Deloitte (USI)",
+  "careersUrl": "https://usijobs.deloitte.com/en_US/careersUSI?3_225_3=2183949",
+  "status": "no-match",
+  "note": "The USI 'Entry level' list still shows 'No jobs found'. SE II roles (Fullstack Java+React, Microservices Java, Salesforce) need 4-7 years. L25 openings are audit, ops or AEM content roles (1-3 years, marketing).",
+  "roles": []
+ },
+ {
+  "company": "EY (GDS)",
+  "careersUrl": "https://careers.ey.com/ey/search/?q=&locationsearch=India",
+  "status": "ok",
+  "note": "Most EY India tech postings are Senior/Manager. Associate Consultant Digital Engineering (Bengaluru) needs 3+ years of backend. Client Technology SE (Hyderabad) needs 10+ years. The only 0-2 year tech posting is the same one as last run, and it is still open.",
+  "roles": [
+   {
+    "title": "Analyst - TAX - National - TAX - Other - TTT Development - Bangalore",
+    "location": "Bengaluru",
+    "experience": "DevOps 0-2 years; B.Tech CS",
+    "posted": "2026-09-16",
+    "url": "https://careers.ey.com/ey/job/Bengaluru-Analyst-TAX-National-TAX-Other-TTT-Development-Bangalore-KA-560001/1437768833/",
+    "fit": 3,
+    "why": "0-2 yr tech role in Bengaluru (tax-tech dev/DevOps); asks for a CS degree"
+   }
+  ]
+ },
+ {
+  "company": "PwC (Acceleration Centers India)",
+  "careersUrl": "https://pwc.wd3.myworkdayjobs.com/Global_Experienced_Careers",
+  "status": "no-match",
+  "note": "India dev roles: the AI Solution Developer role (Kolkata/Bangalore) needs 4+ years. The Bengaluru 'Associate' postings are KYC/AML roles needing 3-6 years. The Global_Campus_Careers site has no India postings.",
+  "roles": []
+ },
+ {
+  "company": "KPMG (Global Services India)",
+  "careersUrl": "https://ejgk.fa.em2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_3",
+  "status": "ok",
+  "note": "Oracle Recruiting API. The new GDC Technology Solutions entry-level Azure data-engineer postings are listed below. The Pune Frontend (React) and Backend (Node) developer roles need 7-10+ years. Junior Engineer AIS (Gurgaon) needs 2-5 years.",
+  "roles": [
+   {
+    "title": "Analyst-GDC (A1)",
+    "location": "Hyderabad",
+    "experience": "0-2 years; entry-level for fresh campus graduates; B.Tech/B.E/MCA (CS/IT/EE/EEE/ME)",
+    "posted": "2026-09-28",
+    "url": "https://ejgk.fa.em2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_3/job/30043661",
+    "fit": 3,
+    "why": "True fresher role in Hyderabad, but Azure data engineering, not web dev; ECE not explicitly listed"
+   },
+   {
+    "title": "Executive-GDC (Data Engineer)",
+    "location": "Bengaluru",
+    "experience": "0-3 years; entry-level; BE/B.Tech from premium institutes (IITs etc.)",
+    "posted": "2026-09-28",
+    "url": "https://ejgk.fa.em2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_3/job/30043570",
+    "fit": 2,
+    "why": "Entry-level in Bengaluru, but a data-engineering track limited to premium institutes"
+   },
+   {
+    "title": "Cyber IAM Managed Service - Intern to FTE conversion",
+    "location": "Bengaluru (Pune/Bangalore office)",
+    "experience": "0-1 years; pursuing/completed B.Tech CS/IT",
+    "posted": "2026-09-29",
+    "url": "https://ejgk.fa.em2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_3/job/30046883",
+    "fit": 2,
+    "why": "Fresher intern-to-hire in Bengaluru, but IAM (SailPoint/CyberArk) ops with shifts, not development"
+   }
+  ]
+ },
+ {
+  "company": "DXC Technology",
+  "careersUrl": "https://dxctechnology.wd1.myworkdayjobs.com/DXCJobs",
+  "status": "ok",
+  "note": "Most India SE roles are Sr Analyst (5+ years). The Analyst II SE Chennai postings (51555333, 51586284) are Finacle L1 banking support needing 1+ year, so they are excluded. Analyst I Data Engineering (Hyderabad) needs 2+ years.",
+  "roles": [
+   {
+    "title": "Analyst II Software Engineering",
+    "location": "Mumbai",
+    "experience": "Typically 1+ years of software engineering; Bachelor's (e.g. CS)",
+    "posted": "2026-09-29",
+    "url": "https://dxctechnology.wd1.myworkdayjobs.com/DXCJobs/job/IND---MH---MUMBAI/Analyst-II-Software-Engineering_51586679-1",
+    "fit": 3,
+    "why": "Generic junior SE role posted today; soft 1+ yr ask; Mumbai is not a preferred city"
+   }
+  ]
+ },
+ {
+  "company": "NTT Data",
+  "careersUrl": "https://careers.nttdata.com/global/en/search-results",
+  "status": "ok",
+  "note": "New this run: an entry-level full-stack role in Bengaluru (0-3 years). Most other India developer roles are 6-10+ years; 'Fullstack engineers + AI' needs 7+ years. Service-desk and call-center graduate roles are excluded.",
+  "roles": [
+   {
+    "title": "Software Development Analyst (Full Stack Developer)",
+    "location": "Bengaluru",
+    "experience": "0-3 years",
+    "posted": "2026-09-28",
+    "url": "https://careers.nttdata.com/global/en/job/NTT1GLOBAL391781EXTERNALENGLOBAL",
+    "fit": 5,
+    "why": "Full-stack front-end + back-end dev, 0-3 yrs, in Bengaluru"
+   },
+   {
+    "title": "Z2_Software and application engineering / BE Developer",
+    "location": "Bengaluru",
+    "experience": "Not stated",
+    "posted": "2026-09-28",
+    "url": "https://careers.nttdata.com/global/en/job/NTT1GLOBAL389581EXTERNALENGLOBAL",
+    "fit": 3,
+    "why": "Java 8+/Spring Boot/REST/MongoDB backend in Bengaluru, a strong stack match; seniority unclear"
+   },
+   {
+    "title": "Technical Graduate Trainee",
+    "location": "Noida",
+    "experience": "Freshers welcome, BE/B.Tech; Rs 3.2 LPA after training",
+    "posted": "2026-06-25",
+    "url": "https://careers.nttdata.com/global/en/job/NTT1GLOBALP100247EXTERNALENGLOBAL",
+    "fit": 2,
+    "why": "Fresher trainee open to BE/B.Tech, but networking (CCNA) track, not software dev"
+   },
+   {
+    "title": "Junior Engineer - DW Technology",
+    "location": "Bengaluru",
+    "experience": "Entry level",
+    "posted": "2026-09-23",
+    "url": "https://careers.nttdata.com/global/en/job/NTT1GLOBALR148986EXTERNALENGLOBAL",
+    "fit": 2,
+    "why": "Entry-level role in Bengaluru, but networking/systems-integration work"
+   }
+  ]
+ },
+ {
+  "company": "Genpact",
+  "careersUrl": "https://genpact.wd108.myworkdayjobs.com/External_Careers",
+  "status": "ok",
+  "note": "No true fresher dev roles; 'fresher' search returns only customer care. Band 5A/4A dev roles give no years in their postings. Most other dev roles are Sr/4B. AI Engineer 4A (Bangalore) needs 2+ years of DevOps.",
+  "roles": [
+   {
+    "title": "Technical Associate - Application Development 5A",
+    "location": "Gurgaon",
+    "experience": "Not stated; B.E/B.Tech CS/IT/Comp Engg (junior band 5A)",
+    "posted": "2026-09-11",
+    "url": "https://genpact.wd108.myworkdayjobs.com/External_Careers/job/1401-G-India-2-3-FL-22A-STPI-Gurgaon/Technical-Associate---Application-Development-5A_JR10025365",
+    "fit": 3,
+    "why": "Junior app-dev associate band working with front-end devs; not a preferred city; degree list omits ECE"
+   },
+   {
+    "title": "Developer - Application Development JAVA N 4A",
+    "location": "Hyderabad",
+    "experience": "Not stated (band 4A)",
+    "posted": "2026-09-28",
+    "url": "https://genpact.wd108.myworkdayjobs.com/External_Careers/job/1401-G-India-Floor-1-to-12-Hafeezpet-Phoenix-Hyderabad/Developer---Application-Development-JAVA-N-4A_JR10027876",
+    "fit": 2,
+    "why": "Java developer in a preferred city; band 4A is likely above fresher"
+   },
+   {
+    "title": "Developer - Application Development JAVA N 4A",
+    "location": "Noida",
+    "experience": "Not stated (band 4A, likely 2+ yrs)",
+    "posted": "2026-09-10",
+    "url": "https://genpact.wd108.myworkdayjobs.com/External_Careers/job/1401-G-India-D-4-Sec-59-Noida/Developer---Application-Development-JAVA-N-4A_JR10024952-1",
+    "fit": 2,
+    "why": "Stack is a strong match (React+TypeScript, NestJS, PostgreSQL) but seniority is probably above fresher"
+   },
+   {
+    "title": "Developer - Application Development Programming Language/Scripting Languages/Web Technologies S 4A",
+    "location": "Mumbai",
+    "experience": "Not stated (band 4A)",
+    "posted": "2026-09-28",
+    "url": "https://genpact.wd108.myworkdayjobs.com/External_Careers/job/1401-G-India-7th-fl-Raiaskaran-Tech-Park-Sakinaka-Mumbai/Developer---Application-Development-Programming-Language-Scripting-Languages-Web-Technologies-S-4A_JR10028188",
+    "fit": 2,
+    "why": "Web-technologies developer; seniority unclear, not a preferred city"
+   },
+   {
+    "title": "Developer - Application Development JAVA P 4A",
+    "location": "Noida",
+    "experience": "Not stated (band 4A)",
+    "posted": "2026-07-10",
+    "url": "https://genpact.wd108.myworkdayjobs.com/External_Careers/job/1401-G-India-D-4-Sec-59-Noida/Developer---Application-Development-JAVA-P-4A_JR10013946",
+    "fit": 2,
+    "why": "Java app developer; seniority unclear, likely experienced"
+   }
+  ]
+ },
+ {
+  "company": "EPAM Systems",
+  "careersUrl": "https://www.epam.com/careers/job-listings?country=India",
+  "status": "blocked",
+  "note": "epam.com job listings (and its vacancy search endpoint) still return a Cloudflare challenge (403). The careers.epam.com public API (1125 jobs) has no India postings and ignores the country filter. Check manually.",
+  "roles": []
+ },
+ {
+  "company": "Virtusa",
+  "careersUrl": "https://careers.virtusa.com/",
+  "status": "error",
+  "note": "careers.virtusa.com still redirects to Taleo (virtusa.taleo.net/careersection/ex) which shows 'Career Section Unavailable'; virtusa.com/careers 403; no public Workday site found. Check manually.",
+  "roles": []
+ },
+ {
+  "company": "UST",
+  "careersUrl": "https://www.ust.com/en/careers",
+  "status": "blocked",
+  "note": "ust.com/careers returns 403 (bot protection); careers.ust.com / jobs.ust.com do not resolve. Check manually.",
+  "roles": []
+ },
+ {
+  "company": "Kyndryl",
+  "careersUrl": "https://kyndryl.wd5.myworkdayjobs.com/KyndrylProfessionalCareers",
+  "status": "no-match",
+  "note": "Workday API OK (254 SE hits). India dev roles checked all need 5-12+ yrs (Full Stack R-55465 5-12 yrs, AMS Support R-66580 6+ yrs, Software Engineer R-64501 10+ yrs). Graduate program/interns are Mexico/Greece only.",
+  "roles": []
+ },
+ {
+  "company": "Microsoft",
+  "careersUrl": "https://apply.careers.microsoft.com/careers?query=software%20engineer&location=India",
+  "status": "ok",
+  "note": "Eightfold pcsx API OK. The entry-level 'Software Engineering' (Bengaluru) role from last run is closed (404). India SE II roles now ask 2-5+ yrs. Only the intern posting remains, which needs current enrollment.",
+  "roles": [
+   {
+    "title": "Software Engineering INTERN",
+    "location": "India, Multiple Locations",
+    "experience": "Currently pursuing Bachelor's/Master's",
+    "posted": "2026-09-18",
+    "url": "https://apply.careers.microsoft.com/careers/job/1970393556911730",
+    "fit": 1,
+    "why": "Requires current enrollment; 2026 grad likely ineligible"
+   }
+  ]
+ },
+ {
+  "company": "Google",
+  "careersUrl": "https://www.google.com/about/careers/applications/jobs/results/?location=India&target_level=EARLY&q=software",
+  "status": "ok",
+  "note": "16 EARLY-level India results; SWE roles ask 1 yr experience. New Systems Dev / Web Solutions Engineer roles ask 2 yrs (excluded).",
+  "roles": [
+   {
+    "title": "Software Engineer II, Google Ads",
+    "location": "Bengaluru, India",
+    "experience": "Bachelor's + 1 year software development",
+    "posted": "2026-09-23",
+    "url": "https://www.google.com/about/careers/applications/jobs/results/78820455502226118-software-engineer-ii-google-ads",
+    "fit": 4,
+    "why": "Early-career SWE in Bengaluru; 1 yr ask is a stretch"
+   },
+   {
+    "title": "Software Engineer, Search",
+    "location": "Bengaluru / Hyderabad, India",
+    "experience": "Bachelor's + 1 year software development",
+    "posted": "2026-09-08",
+    "url": "https://www.google.com/about/careers/applications/jobs/results/122710813273137862-software-engineer-search",
+    "fit": 4,
+    "why": "Early-career SWE, preferred cities"
+   },
+   {
+    "title": "Software Engineer II, YouTube",
+    "location": "Bengaluru, India",
+    "experience": "Bachelor's + 1 year software development",
+    "posted": "2026-09-08",
+    "url": "https://www.google.com/about/careers/applications/jobs/results/135468515409699526-software-engineer-ii-youtube",
+    "fit": 4,
+    "why": "Early-career SWE in Bengaluru"
+   },
+   {
+    "title": "Software Engineer II, Corp Eng",
+    "location": "Hyderabad / Bengaluru, India",
+    "experience": "Bachelor's + 1 year software development",
+    "posted": "2026-08-28",
+    "url": "https://www.google.com/about/careers/applications/jobs/results/138674961899233990-software-engineer-ii-corp-eng",
+    "fit": 4,
+    "why": "Early-career SWE, preferred cities"
+   },
+   {
+    "title": "Site Reliability Engineer",
+    "location": "Bengaluru, India",
+    "experience": "1 year software experience",
+    "posted": "2026-09-07",
+    "url": "https://www.google.com/about/careers/applications/jobs/results/87706967249691334-site-reliability-engineer",
+    "fit": 3,
+    "why": "Early level but SRE/ops-leaning"
+   }
+  ]
+ },
+ {
+  "company": "Amazon (incl. AWS)",
+  "careersUrl": "https://www.amazon.jobs/en/search?base_query=SDE&loc_query=India",
+  "status": "ok",
+  "note": "search.json API OK. SDE-1 roles ask 1+ yr non-internship experience; no pure new-grad SDE posting in India. Last run's Amazon Pay and IESP SDE roles are closed.",
+  "roles": [
+   {
+    "title": "SDE-1, Expansions Tech and Product",
+    "location": "Hyderabad, Telangana, IND",
+    "experience": "1+ yrs non-internship SDE experience",
+    "posted": "2026-09-18",
+    "url": "https://www.amazon.jobs/en/jobs/10553343/sde-1-expansions-tech-and-product",
+    "fit": 4,
+    "why": "SDE-1 in Hyderabad; 1 yr ask is a stretch"
+   },
+   {
+    "title": "Software Development Engineer -I, IESP Merchant Tech",
+    "location": "Bengaluru, Karnataka, IND",
+    "experience": "1+ yrs non-internship SDE experience",
+    "posted": "2026-08-24",
+    "url": "https://www.amazon.jobs/en/jobs/10511883/software-development-engineer-i-iesp-merchant-tech",
+    "fit": 4,
+    "why": "SDE I in Bengaluru"
+   },
+   {
+    "title": "SDE-I, Rewards",
+    "location": "Gurugram, Haryana, IND",
+    "experience": "1+ yrs non-internship SDE experience",
+    "posted": "2026-09-22",
+    "url": "https://www.amazon.jobs/en/jobs/10555910/sde-i-rewards",
+    "fit": 3,
+    "why": "SDE I, non-preferred city"
+   },
+   {
+    "title": "Software Development Engineer I, FinOps FP&A",
+    "location": "Bengaluru, Karnataka, IND",
+    "experience": "1+ yrs non-internship SDE experience",
+    "posted": "2026-05-28",
+    "url": "https://www.amazon.jobs/en/jobs/10432823/software-development-engineer-i-finops-fp-a",
+    "fit": 3,
+    "why": "SDE I Bengaluru; older posting"
+   },
+   {
+    "title": "SDE-1 (FTC)",
+    "location": "Bengaluru, Karnataka, IND",
+    "experience": "1+ yrs non-internship SDE experience",
+    "posted": "2026-09-02",
+    "url": "https://www.amazon.jobs/en/jobs/10525643/sde-1-ftc",
+    "fit": 3,
+    "why": "SDE-1 fixed-term contract (5 identical reqs)"
+   }
+  ]
+ },
+ {
+  "company": "Oracle",
+  "careersUrl": "https://careers.oracle.com/jobs/#en/sites/jobsearch",
+  "status": "no-match",
+  "note": "ORC API OK; only 9 India reqs listed now, all senior/principal/sales/DBA/data-center. Last run's Platform Software Engineer 2 (345568) is gone.",
+  "roles": []
+ },
+ {
+  "company": "SAP Labs India",
+  "careersUrl": "https://careers.sap.com/search/?locationsearch=India",
+  "status": "no-match",
+  "note": "careers.sap.com lists ~47 India roles, all senior/expert/sales/data-science; dev roles need 5-8+ yrs. Only grad-type roles are presales/sales academy (non-dev).",
+  "roles": []
+ },
+ {
+  "company": "Cisco",
+  "careersUrl": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers",
+  "status": "ok",
+  "note": "Workday API OK; no fresher roles in India. Closest are Software Engineer reqs asking Bachelor's + 2 yrs (or Master's + 0).",
+  "roles": [
+   {
+    "title": "Software Engineer",
+    "location": "Bangalore, India",
+    "experience": "Bachelor's + 2 yrs OR Master's + 0 yrs; JS/TS + React/Angular",
+    "posted": "2026-09-24",
+    "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/Bangalore-India/Software-Engineer_2014239-1",
+    "fit": 2,
+    "why": "React/JS stack fits, but needs 2 yrs with a B.E."
+   },
+   {
+    "title": "Software Engineer",
+    "location": "Bangalore, India",
+    "experience": "Bachelor's + 2 yrs OR Master's + 0 yrs; Java/React/Angular",
+    "posted": "2026-09-21",
+    "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/Bangalore-India/Software-Engineer_2025118-1",
+    "fit": 2,
+    "why": "Java/React fits, but needs 2 yrs with a B.E."
+   },
+   {
+    "title": "Software Engineer",
+    "location": "Bangalore, India",
+    "experience": "2+ years; C/C++ systems programming",
+    "posted": "2026-09-21",
+    "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/Bangalore-India/Software-Engineer_2023169-2",
+    "fit": 1,
+    "why": "C/C++ systems role, 2+ yrs"
+   }
+  ]
+ },
+ {
+  "company": "Adobe",
+  "careersUrl": "https://adobe.wd5.myworkdayjobs.com/external_experienced",
+  "status": "no-match",
+  "note": "Workday API OK; India SDE/Computer Scientist roles need 4-6+ yrs (e.g. SDE Noida R170776 4+ yrs, CS I Full Stack R170393 4-6 yrs). 2027 University Graduate/Intern SWE postings are US-only; external_university site 403.",
+  "roles": []
+ },
+ {
+  "company": "Salesforce",
+  "careersUrl": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site",
+  "status": "no-match",
+  "note": "Workday API OK (re-checked 2026-09-29). India engineering postings are SMTS/LMTS/PMTS, Director or Manager level, or support/finance roles. The College Grad AMTS (JR355250) and Summer 2027 SWE Intern are US-only.",
+  "roles": []
+ },
+ {
+  "company": "Intel",
+  "careersUrl": "https://intel.wd1.myworkdayjobs.com/External",
+  "status": "ok",
+  "note": "Workday API OK. Most India roles are VLSI/HW. New SW reqs (JR0287347, JR0287256, JR0287283, JR0287295, JR0287102) need 3-10 yrs. Only the two borderline 2-yr roles remain.",
+  "roles": [
+   {
+    "title": "Software Application Development Engineer",
+    "location": "Bangalore, India (also Chengdu)",
+    "experience": "Bachelor's + min 2 yrs (C#, SQL, TypeScript)",
+    "posted": "2026-09-16 (Posted 13 Days Ago)",
+    "url": "https://intel.wd1.myworkdayjobs.com/External/job/India-Bangalore/Software-Application-Development-Engineer_JR0286984",
+    "fit": 2,
+    "why": "App dev SW role in Bengaluru, but asks 2 yrs exp"
+   },
+   {
+    "title": "Software Application Development Engineer",
+    "location": "Bangalore, India (also Chengdu)",
+    "experience": "Bachelor's + min 2 yrs",
+    "posted": "2026-09-17 (Posted 12 Days Ago)",
+    "url": "https://intel.wd1.myworkdayjobs.com/External/job/India-Bangalore/Software-Application-Development-Engineer_JR0286997",
+    "fit": 2,
+    "why": "Twin req of above; same 2-yr bar"
+   }
+  ]
+ },
+ {
+  "company": "Qualcomm",
+  "careersUrl": "https://careers.qualcomm.com/careers",
+  "status": "ok",
+  "note": "Eightfold PCSX API OK. There are 2027-batch campus SW reqs. The generic 'Engineer' SW reqs list only a Bachelor's as the minimum (1+ yr preferred). Work is mostly embedded/C++. The new 'Associate Engineer- PPAT' needs 2+ yrs and was skipped.",
+  "roles": [
+   {
+    "title": "2027 Campus Hire_Associate Engineer_SW",
+    "location": "Hyderabad / Chennai, India",
+    "experience": "Campus hire; Bachelor's/Master's (CSE, ECE, Communication Engg)",
+    "posted": "2026-09-09",
+    "url": "https://careers.qualcomm.com/careers/job/446719784235",
+    "fit": 3,
+    "why": "Entry SW campus role, ECE eligible, Chennai option; targets 2027 batch (candidate is 2026) and is embedded/mobile SW"
+   },
+   {
+    "title": "2027 Campus Hire_Engineer_SW",
+    "location": "Hyderabad, India",
+    "experience": "Campus hire; Bachelor's/Master's (CSE, ECE)",
+    "posted": "2026-09-09",
+    "url": "https://careers.qualcomm.com/careers/job/446719783573",
+    "fit": 3,
+    "why": "Campus SW role, ECE eligible; 2027 batch focus"
+   },
+   {
+    "title": "Engineer (Software Engineering)",
+    "location": "Hyderabad, India",
+    "experience": "Min Bachelor's; 1+ yr preferred (C/C++/Java/Python, APIs, Git)",
+    "posted": "2026-09-28",
+    "url": "https://careers.qualcomm.com/careers/job/446720892993",
+    "fit": 3,
+    "why": "New entry-level generic SWE req"
+   },
+   {
+    "title": "Engineer (Software Engineering)",
+    "location": "Hyderabad, India",
+    "experience": "Min Bachelor's; 1+ yr preferred",
+    "posted": "2026-09-25",
+    "url": "https://careers.qualcomm.com/careers/job/446721248684",
+    "fit": 3,
+    "why": "Entry-level generic SWE (C/C++/Java/Python, APIs)"
+   },
+   {
+    "title": "Engineer- Modem Development",
+    "location": "Hyderabad, India",
+    "experience": "Min Bachelor's; 1+ yr preferred",
+    "posted": "2026-09-28",
+    "url": "https://careers.qualcomm.com/careers/job/446721275984",
+    "fit": 2,
+    "why": "Entry-level bar, but modem/embedded SW"
+   }
+  ]
+ },
+ {
+  "company": "Dell Technologies",
+  "careersUrl": "https://jobs.dell.com/en/search-jobs",
+  "status": "no-match",
+  "note": "Oracle Recruiting API (enterpriseplatform.dell.com, CX_1001) OK. India postings are all 4+ yrs or senior/principal: Systems Dev Eng 2 = 4-6 yrs, Service Delivery Eng = 4-6 yrs, Oracle DB Automation = 13+ yrs.",
+  "roles": []
+ },
+ {
+  "company": "HP Inc / HPE",
+  "careersUrl": "https://hpe.wd5.myworkdayjobs.com/Jobsathpe",
+  "status": "ok",
+  "note": "Both Workday APIs OK. HP Inc (hp.wd5 ExternalCareerSite) has no entry SW roles in India (Go backend 4-9 yrs, Full Stack 8+ yrs, SysSW Eng II 3+ yrs). New at HPE: a Graduate Software Engineer role (0-2 yrs, remote). The roles below are all HPE.",
+  "roles": [
+   {
+    "title": "Graduate Software Engineer (HPE)",
+    "location": "Bengaluru / Kolkata, India (remote/teleworker)",
+    "experience": "Typically 0-2 yrs; Bachelor's CS/IS or equivalent",
+    "posted": "2026-09-28 (Posted Yesterday)",
+    "url": "https://hpe.wd5.myworkdayjobs.com/Jobsathpe/job/Bengaluru-Karntaka-India/Graduate-Software-Engineer_1210218-2",
+    "fit": 4,
+    "why": "Explicit graduate SWE role, 0-2 yrs, Bengaluru/remote India"
+   },
+   {
+    "title": "Fullstack Developer (HPE)",
+    "location": "Bengaluru, India",
+    "experience": "1-2 yrs required",
+    "posted": "2026-09-15 (Posted 14 Days Ago)",
+    "url": "https://hpe.wd5.myworkdayjobs.com/Jobsathpe/job/Bengaluru-Karntaka-India/Fullstack-Developer_1210369-2",
+    "fit": 4,
+    "why": "Full-stack dev in Bengaluru with a low experience bar"
+   },
+   {
+    "title": "External Intern (HPE)",
+    "location": "Bengaluru, India (remote)",
+    "experience": "Intern / grads within 12 months of graduation",
+    "posted": "2026-09-28 (Posted Yesterday)",
+    "url": "https://hpe.wd5.myworkdayjobs.com/Jobsathpe/job/Bengaluru-Karntaka-India/External-Intern_1215487-1",
+    "fit": 3,
+    "why": "Open to recent grads; generic intern/graduate listing"
+   },
+   {
+    "title": "Systems/Software Engineer I (HPE)",
+    "location": "Bengaluru, India",
+    "experience": "Typically 1-3 yrs (testing/QA, networking)",
+    "posted": "30+ Days Ago",
+    "url": "https://hpe.wd5.myworkdayjobs.com/Jobsathpe/job/Bengaluru-Karntaka-India/Systems-Software-Engineer-I_1210150-2",
+    "fit": 2,
+    "why": "Level-I role, but QA/networking focus"
+   },
+   {
+    "title": "Intern (HPE)",
+    "location": "Bengaluru, India (hybrid)",
+    "experience": "Students; currently pursuing a Bachelor's",
+    "posted": "2026-09-24 (Posted 5 Days Ago)",
+    "url": "https://hpe.wd5.myworkdayjobs.com/Jobsathpe/job/Bengaluru-Karntaka-India/Intern_1211844",
+    "fit": 2,
+    "why": "Intern role aimed at current students"
+   }
+  ]
+ },
+ {
+  "company": "VMware (Broadcom)",
+  "careersUrl": "https://broadcom.wd1.myworkdayjobs.com/External_Career",
+  "status": "no-match",
+  "note": "Broadcom Workday API OK. India 'R&D Software Engineer' reqs need 8+ or 14+ yrs. The Bangalore 'Software Engineer' reqs (R027060/R027061) are malware/security-research roles. The rest are IC design, verification or architect roles.",
+  "roles": []
+ },
+ {
+  "company": "ServiceNow",
+  "careersUrl": "https://careers.servicenow.com/jobs/",
+  "status": "ok",
+  "note": "SmartRecruiters API OK (70 India postings). Nearly all are Sr/Staff/Principal/Manager or sales. One new plain 'Software Engineer' req, but it asks 2+ yrs (borderline).",
+  "roles": [
+   {
+    "title": "Software Engineer",
+    "location": "Hyderabad, India",
+    "experience": "2+ yrs Java or similar OO language; JavaScript",
+    "posted": "2026-09-29",
+    "url": "https://jobs.smartrecruiters.com/ServiceNow/744000152325889-software-engineer",
+    "fit": 2,
+    "why": "Java/JS SWE in Hyderabad matches the stack, but asks 2+ yrs"
+   }
+  ]
+ },
+ {
+  "company": "Nvidia",
+  "careersUrl": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite",
+  "status": "no-match",
+  "note": "Workday API OK. New-college-grad reqs are US/China/Taiwan only. India SW roles need 2-8+ yrs (e.g. System Security SW Eng 3+, Robotics Test Dev 2+ embedded). The only India intern is a PhD role.",
+  "roles": []
+ },
+ {
+  "company": "JPMorgan Chase (India tech)",
+  "careersUrl": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001",
+  "status": "ok",
+  "note": "Oracle Recruiting API OK. No SE I or campus SWE posted for India. SE II roles ask '2+ yrs applied experience' (borderline). The .NET/React full stack and Python backend roles ask 3+ yrs and were excluded.",
+  "roles": [
+   {
+    "title": "Java Full Stack (Java, ReactJS, AWS, AI tools) Software Engineer II",
+    "location": "Bengaluru, India",
+    "experience": "2+ yrs applied experience",
+    "posted": "2026-08-20",
+    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210754767",
+    "fit": 3,
+    "why": "Exact stack (Java + React) in Bengaluru; 2-yr ask"
+   },
+   {
+    "title": "Software Engineer II - Java, Springboot, AWS",
+    "location": "Bengaluru, India",
+    "experience": "2+ yrs applied experience",
+    "posted": "2026-09-29",
+    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210791216",
+    "fit": 2,
+    "why": "Java/Spring Boot matches; 2-yr ask"
+   },
+   {
+    "title": "Software Engineer II - Java, Springboot , AWS",
+    "location": "Bengaluru, India",
+    "experience": "2+ yrs applied experience",
+    "posted": "2026-09-29",
+    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210791230",
+    "fit": 2,
+    "why": "Twin Spring Boot req; 2-yr ask"
+   },
+   {
+    "title": "Software Engineer II - Java",
+    "location": "Hyderabad, India",
+    "experience": "2+ yrs applied experience",
+    "posted": "2026-09-29",
+    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210738367",
+    "fit": 2,
+    "why": "Java SWE; 2-yr ask"
+   },
+   {
+    "title": "Software Engineer II - Java, Kafka, AWS",
+    "location": "Hyderabad, India",
+    "experience": "2+ yrs applied experience",
+    "posted": "2026-09-22",
+    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210788024",
+    "fit": 2,
+    "why": "Java backend; 2-yr ask"
+   }
+  ]
+ },
+ {
+  "company": "Goldman Sachs (India engineering)",
+  "careersUrl": "https://higher.gs.com/results?LOCATION=India",
+  "status": "ok",
+  "note": "higher.gs.com GraphQL API OK. No campus/new-analyst SWE reqs open for India. These are Analyst-level lateral roles with 1-3 yr asks. The new Core Eng L2 Analyst req (185542) asks 3+ yrs and was excluded. The source gives no posted dates.",
+  "roles": [
+   {
+    "title": "The Core Engineering - KYC Model Eng - Analyst - Bengaluru",
+    "location": "Bengaluru, India",
+    "experience": "1+ yrs professional SW dev; Java",
+    "posted": "",
+    "url": "https://higher.gs.com/roles/177617",
+    "fit": 3,
+    "why": "Analyst-level Java SWE, low bar"
+   },
+   {
+    "title": "The Core Engineering - NFR & Controls Data Eng - Analyst - Hyderabad",
+    "location": "Hyderabad, India",
+    "experience": "1+ yrs professional SW dev; Java",
+    "posted": "",
+    "url": "https://higher.gs.com/roles/171539",
+    "fit": 3,
+    "why": "Analyst-level Java SWE, low bar"
+   },
+   {
+    "title": "Tax - Tax Engineering - Analyst - Bengaluru",
+    "location": "Bengaluru, India",
+    "experience": "1-3 yrs Java development",
+    "posted": "",
+    "url": "https://higher.gs.com/roles/171519",
+    "fit": 3,
+    "why": "Java analyst engineer role"
+   },
+   {
+    "title": "The Core-Risk-Bengaluru-Analyst-Software Engineering",
+    "location": "Bengaluru, India",
+    "experience": "1-3 yrs (Tableau/Alteryx/front-end)",
+    "posted": "",
+    "url": "https://higher.gs.com/roles/181261",
+    "fit": 2,
+    "why": "Analyst SWE, mostly BI/front-end tooling"
+   },
+   {
+    "title": "The Core Engineering-Hyderabad-Analyst-Software Engineering",
+    "location": "Hyderabad, India",
+    "experience": "Min 2 yrs Java app dev (described as senior developer)",
+    "posted": "",
+    "url": "https://higher.gs.com/roles/174521",
+    "fit": 2,
+    "why": "Internal Audit engineering; 2-yr ask"
+   }
+  ]
+ }
+]
